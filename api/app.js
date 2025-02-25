@@ -2,6 +2,8 @@ require("dotenv").config();
 const express = require("express");
 const logger = require("morgan");
 const { cors } = require("./config/cors.config");
+const { loadSession } = require("./config/session.config");
+const { loadSessionUser } = require("./middlewares/session.middleware");
 
 /* DB init */
 require("./config/db.config");
@@ -12,6 +14,8 @@ const app = express();
 app.use(cors);
 app.use(express.json());
 app.use(logger("dev"));
+app.use(loadSession);
+app.use(loadSessionUser);
 
 /* API Routes Configuration */
 const routes = require("./config/routes.config");
