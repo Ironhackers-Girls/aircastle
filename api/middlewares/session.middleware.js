@@ -25,3 +25,18 @@ module.exports.isAuthenticated = (req, res, next) => {
 }
 
 
+module.exports.isHost = (req, res, next) => {
+  if (req.user.role === "host") {
+    next();
+  } else {
+    next(createError(403, "Forbidden, you are not a host!"))
+  }
+}
+
+module.exports.isGuest = (req, res, next) => {
+  if (req.user.role === "guest") {
+    next()
+  } else {
+    next(createError(403, "Forbidden, you are not a guest!"))
+  }
+}

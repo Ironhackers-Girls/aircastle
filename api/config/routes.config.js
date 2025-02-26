@@ -4,11 +4,24 @@ const router = express.Router();
 const createError = require("http-errors");
 const users = require("../controllers/users.controller");
 const auth = require("../middlewares/session.middleware");
-const sessions = require("../controllers/sessions.controller")
+const sessions = require("../controllers/sessions.controller");
+const castles = require("../controllers/castles.controller");
+const bookings = require("../controllers/bookings.controller")
 
 router.post("/users", users.create);
 router.patch("/users/:id", auth.isAuthenticated, users.update);
 router.get("/users/:username", users.profile);
+
+router.post("/castles", auth.isAuthenticated, auth.isHost, castles.create);
+router.patch("/castles/:id", auth.isAuthenticated, auth.isHost, castles.update);
+router.delete("/castles/:id",auth.isAuthenticated, auth.isHost, castles.delete);
+router.get("/castles", castles.list);
+router.get("/castles/:id", castles.detail);
+
+router.get("/bookings", auth.isAuthenticated, bookings.list);
+router.post("/bookings", auth.isAuthenticated, auth.isGuest, bookings.create);
+router.get("/bookings/:id", auth.isAuthenticated, bookings.detail);
+router.delete("/bookings/:id", auth.isAuthenticated, bookings.delete)
 
 router.post("/sessions", sessions.create);
 router.delete("/sessions", auth.isAuthenticated, sessions.destroy);
