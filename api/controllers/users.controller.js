@@ -8,15 +8,15 @@ module.exports.create = (req, res, next) => {
         .then((user) => {
             if (user) {
                 if (user.username === username) {
-                    return createErrorResponse(400, "Username already taken", { username: "Username exists" });
+                    next(createError(400, "Username already taken", { username: "Username exists" }));
                 }
 
                 if (user.email === email) {
-                    return createErrorResponse(400, "Email already taken", { email: "Email exists" });
+                    next(createError(400, "Email already taken", { email: "Email exists" }));
                 }
 
                 if (user.role !== role) {
-                    return createErrorResponse(400, "Can't register with another role.", { role: "Role mismatch" });
+                    next(createError(400, "Can't register with another role.", { role: "Role mismatch" }));
                 }
                 
             } else {
@@ -68,7 +68,20 @@ module.exports.profile = (req, res, next) => {
             if (!user) {
                 return next(createError(404, "User not found"));
             }
-            res.json(user); 
+            if(user.role === "guest") {
+                return next(res.status(301).redirect('/login'))
+            }
+            const userResponse = {
+                id: user.id,
+                username: user.username,
+                name: user.name,
+                email: user.email,
+                phone: user.phone,
+                role: user.role,
+                createdAt: user.createdAt,
+                updatedAt: user.updatedAt
+            }
+            res.json(userResponse); 
         })
         .catch(next); 
 };

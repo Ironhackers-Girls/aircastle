@@ -56,6 +56,8 @@ const userSchema = new mongoose.Schema(
                 delete ret.__v;
                 delete ret._id;
                 delete ret.password;
+                delete ret.phone;
+                delete ret.email;
 
                 ret.id = doc.id;
                 return ret;

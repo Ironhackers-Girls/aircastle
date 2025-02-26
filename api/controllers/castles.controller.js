@@ -1,5 +1,6 @@
 const createError = require("http-errors");
 const Castle = require("../models/castles.model");
+const Review = require ("../models/reviews.model");
 
 module.exports.list = (req, res, next) => {
     Castle.find()
@@ -64,3 +65,41 @@ module.exports.update = (req, res, next) => {
     })
     .catch(error => next(error))
 };
+
+module.exports.createReview = (req, res, next) => {
+    Review.create({
+        title: req.body.title,
+        rating: req.body.rating,
+        text: req.body.text,
+        user: req.user.id,
+        castle: req.params.id,
+    })
+        .then((review) => res.status(201).json(review))
+        .catch((error) => next(error));
+};
+
+module.exports.listReviews = (req, res, next) => {
+    Review.find(req.params.reviewId)
+        .populate("user")
+        .populate("castle")
+        .then((review) => res.json(review))
+        .catch((error) => next(error));
+}
+
+
+module.exports.updateReview = (req, res, next) => {
+    const { id } = req.params;
+    const { body } = req;
+
+    const permittedParams = ["title", "rating", "text"];
+    Object.keys(body).forEach((key) => {
+        if (!permittedParams.includes(key)) delete body[key];
+    })
+
+    Review.findByIdAndUpdate(id, body, {runValidators: true, new: true})
+    .then((review) => {
+        if(!review) next(this.createError(404, "Review not found"));
+        else res.status(201).json(review);
+    })
+    .catch(error => next(error))
+}

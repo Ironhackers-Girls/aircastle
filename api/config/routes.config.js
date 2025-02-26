@@ -6,10 +6,10 @@ const users = require("../controllers/users.controller");
 const auth = require("../middlewares/session.middleware");
 const sessions = require("../controllers/sessions.controller");
 const castles = require("../controllers/castles.controller");
-const bookings = require("../controllers/bookings.controller")
+const bookings = require("../controllers/bookings.controller");
 
 router.post("/users", users.create);
-router.patch("/users/:id", auth.isAuthenticated, users.update);
+router.patch("/users/:username", auth.isAuthenticated, users.update);
 router.get("/users/:username", users.profile);
 
 router.post("/castles", auth.isAuthenticated, auth.isHost, castles.create);
@@ -21,7 +21,11 @@ router.get("/castles/:id", castles.detail);
 router.get("/bookings", auth.isAuthenticated, bookings.list);
 router.post("/bookings", auth.isAuthenticated, auth.isGuest, bookings.create);
 router.get("/bookings/:id", auth.isAuthenticated, bookings.detail);
-router.delete("/bookings/:id", auth.isAuthenticated, bookings.delete)
+router.delete("/bookings/:id", auth.isAuthenticated, bookings.delete);
+
+router.get("/castles/:id/reviews", auth.isAuthenticated, castles.listReviews);
+router.post("/castles/:id/reviews", auth.isAuthenticated, auth.isGuest, castles.createReview);
+router.patch("/castles/:id/reviews/:id", auth.isAuthenticated, auth.isGuest, castles.updateReview);
 
 router.post("/sessions", sessions.create);
 router.delete("/sessions", auth.isAuthenticated, sessions.destroy);
