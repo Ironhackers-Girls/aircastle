@@ -7,25 +7,33 @@ const auth = require("../middlewares/session.middleware");
 const sessions = require("../controllers/sessions.controller");
 const castles = require("../controllers/castles.controller");
 const bookings = require("../controllers/bookings.controller");
+const search = require("../controllers/search.controller");
 
+router.get("/users/:username", auth.userIsLoggedIn, users.profile);
 router.post("/users", users.create);
-router.patch("/users/:username", auth.isAuthenticated, users.update);
-router.get("/users/:username", users.profile);
+router.patch("/users/myprofile", auth.isAuthenticated, users.update);
 
-router.post("/castles", auth.isAuthenticated, auth.isHost, castles.create);
-router.patch("/castles/:id", auth.isAuthenticated, auth.isHost, castles.update);
-router.delete("/castles/:id",auth.isAuthenticated, auth.isHost, castles.delete);
+
 router.get("/castles", castles.list);
 router.get("/castles/:id", castles.detail);
+router.post("/castles", auth.isAuthenticated, auth.isHost, castles.create);
+router.patch("/castles/:id", auth.isAuthenticated, auth.isHost, auth.isYourCastle, castles.update);
+router.delete("/castles/:id",auth.isAuthenticated, auth.isHost, auth.isYourCastle, castles.delete);
+
+
+router.get("/search", search.list)
+
 
 router.get("/bookings", auth.isAuthenticated, bookings.list);
+router.get("/bookings/:id", auth.isAuthenticated, auth.isYourBooking, bookings.detail);
 router.post("/bookings", auth.isAuthenticated, auth.isGuest, bookings.create);
-router.get("/bookings/:id", auth.isAuthenticated, bookings.detail);
-router.delete("/bookings/:id", auth.isAuthenticated, bookings.delete);
+router.delete("/bookings/:id", auth.isAuthenticated, auth.isGuest, bookings.delete);
 
-router.get("/castles/:id/reviews", auth.isAuthenticated, castles.listReviews);
-router.post("/castles/:id/reviews", auth.isAuthenticated, auth.isGuest, castles.createReview);
-router.patch("/castles/:id/reviews/:id", auth.isAuthenticated, auth.isGuest, castles.updateReview);
+
+router.get("/users/:id/reviews", auth.isAuthenticated, users.listReviews);
+router.post("/users/:id/reviews", auth.isAuthenticated, auth.isGuest, users.createReview);
+router.patch("/users/:id/reviews/:id", auth.isAuthenticated, auth.isGuest, users.updateReview);
+
 
 router.post("/sessions", sessions.create);
 router.delete("/sessions", auth.isAuthenticated, sessions.destroy);

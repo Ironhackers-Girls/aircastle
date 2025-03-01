@@ -1,13 +1,11 @@
 const createError = require("http-errors");
 const Castle = require("../models/castles.model");
-const Review = require("../models/reviews.model");
 const Booking = require("../models/bookings.model");
 const dayjs = require("dayjs");
 
 module.exports.list = async (req, res, next) => {
     const { city,
-        checkIn,
-        checkOut,
+        idHost,
         capacity,
         priceMin,
         priceMax,
@@ -17,21 +15,7 @@ module.exports.list = async (req, res, next) => {
         services
     } = req.query;
 
-    try {
-
-        let castlesReserved = [];
-
-        if (checkIn || checkOut) {
-
-            const bookedCastles = await Booking.find({
-                checkIn: { $lte: new Date(checkOut) },
-                checkOut: { $gte: new Date(checkIn) }
-            }).populate('castle');
-
-            castlesReserved = bookedCastles.map((booking) => (booking.castle.id.toString()));
-        }
-
-        const criterial = {};
+    const criterial = {};
         if (city) criterial['address.city'] = city;
         if (capacity) criterial.capacity = { $gte: capacity };
         if (rooms) criterial.rooms = { $gte: rooms };
@@ -43,17 +27,17 @@ module.exports.list = async (req, res, next) => {
             if (priceMax) criterial.price.$lte = priceMax;
         }
         if (amenities) criterial.amenities = { $in: amenities.split(",") };
+        if (idHost) criterial.user = idHost;
 
-        const availableCastles = await Castle.find({
-            ...criterial,
-            _id: { $nin: castlesReserved }
-        });
-
-        res.json(availableCastles);
-
-    } catch (error) {
-        next(error);
-    };
+        Castle.find(criterial)
+        .then((castles) => {
+            if (!castles || castles.length === 0) {
+                return res.status(204).send();
+            }
+            res.json(castles);  
+        })
+        .catch((error) => next(error)); 
+    
 };
 
 module.exports.detail = async (req, res, next) => {
@@ -104,6 +88,7 @@ module.exports.detail = async (req, res, next) => {
 module.exports.create = (req, res, next) => {
     const castle = req.body;
     castle.user = req.session.userId;
+    console.log(req.session.userId);
 
     if (castle.address?.location) {
         const { lat, lng } = castle.address.location || {};
@@ -148,40 +133,4 @@ module.exports.update = (req, res, next) => {
         .catch(error => next(error))
 };
 
-module.exports.createReview = (req, res, next) => {
-    Review.create({
-        title: req.body.title,
-        rating: req.body.rating,
-        text: req.body.text,
-        user: req.user.id,
-        castle: req.params.id,
-    })
-        .then((review) => res.status(201).json(review))
-        .catch((error) => next(error));
-};
 
-module.exports.listReviews = (req, res, next) => {
-    Review.find(req.params.reviewId)
-        .populate("user")
-        .populate("castle")
-        .then((review) => res.json(review))
-        .catch((error) => next(error));
-}
-
-
-module.exports.updateReview = (req, res, next) => {
-    const { id } = req.params;
-    const { body } = req;
-
-    const permittedParams = ["title", "rating", "text"];
-    Object.keys(body).forEach((key) => {
-        if (!permittedParams.includes(key)) delete body[key];
-    })
-
-    Review.findByIdAndUpdate(id, body, { runValidators: true, new: true })
-        .then((review) => {
-            if (!review) next(this.createError(404, "Review not found"));
-            else res.status(201).json(review);
-        })
-        .catch(error => next(error))
-}

@@ -1,5 +1,7 @@
 const createError = require("http-errors");
 const User = require("../models/user.model");
+const Castle = require("../models/castles.model");
+const Booking = require("../models/bookings.model");
 
 module.exports.loadSessionUser = (req, res, next) => {
   const { userId } = req.session;
@@ -22,6 +24,83 @@ module.exports.isAuthenticated = (req, res, next) => {
   } else {
     next(createError(401, 'Unauthorized, missing credentials'));
   }
+}
+
+module.exports.userIsLoggedIn = (req, res, next) => {
+  const { username } = req.params; 
+
+  if (req.user) {
+    next(); 
+  } else {
+    User.findOne({ username })
+        .then((user) => {
+            if (!user) {
+                next(createError(404, "User not found"));
+            }
+
+            if(user.role === "guest") {
+              res.status(418).send(); // insert login-page
+            }
+            const userResponse = {
+                id: user.id,
+                username: user.username,
+                name: user.name,
+                role: user.role
+            }
+            res.json(userResponse); 
+        })
+        .catch(next); 
+  }
+}
+
+module.exports.isYourCastle = (req, res, next) => {
+  const { id } = req.params;
+
+  Castle.findById(id)
+    .then((castle) => {
+      if (!castle) next(createError(404, "Castle not found"));
+      if (castle.user.toString() !== req.user.id) next(createError(403, "You are not the owner!"));
+      next();
+    })
+    .catch((error) => next(error))
+}
+
+module.exports.isYourBooking = (req, res, next) => {
+  console.log("he llegado al middleware")
+  const { id } = req.params;
+    const userId = req.session.userId;
+    
+
+    if (req.user.role === "guest") {
+        Booking.find({ user: userId, _id: id  })
+            .populate("castle")
+            .populate("user")
+            .then((booking) => {
+               
+                if (!booking || booking.length === 0) next(createError(403, "You can't access that booking"));
+                else res.json(booking)
+            })
+            .catch((error) => next(error))
+    }
+
+    if (req.user.role === "host") {
+        Booking.findById(id)
+            .then((booking) => {
+              
+                const castleId = booking.castle.toString();
+               
+                Castle.findById(castleId)
+                    .then((castle) => {
+                        if (castle.user.toString() === userId) {
+                            next()
+                        } else {
+                            next(createError(403, "Forbidden"));
+                        }
+                    })
+                    .catch((error) => next(error));
+            })
+            .catch((error) => next(error));
+    }
 }
 
 
