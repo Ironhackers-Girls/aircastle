@@ -20,36 +20,36 @@ module.exports.loadSessionUser = (req, res, next) => {
 
 module.exports.isAuthenticated = (req, res, next) => {
   if (req.user) {
-    next(); 
+    next();
   } else {
     next(createError(401, 'Unauthorized, missing credentials'));
   }
 }
 
 module.exports.userIsLoggedIn = (req, res, next) => {
-  const { username } = req.params; 
+  const { username } = req.params;
 
   if (req.user) {
-    next(); 
+    next();
   } else {
     User.findOne({ username })
-        .then((user) => {
-            if (!user) {
-                next(createError(404, "User not found"));
-            }
+      .then((user) => {
+        if (!user) {
+          next(createError(404, "User not found"));
+        }
 
-            if(user.role === "guest") {
-              res.status(418).send(); // insert login-page
-            }
-            const userResponse = {
-                id: user.id,
-                username: user.username,
-                name: user.name,
-                role: user.role
-            }
-            res.json(userResponse); 
-        })
-        .catch(next); 
+        if (user.role === "guest") {
+          res.status(418).send(); // insert login-page
+        }
+        const userResponse = {
+          id: user.id,
+          username: user.username,
+          name: user.name,
+          role: user.role
+        }
+        res.json(userResponse);
+      })
+      .catch(next);
   }
 }
 
@@ -68,39 +68,37 @@ module.exports.isYourCastle = (req, res, next) => {
 module.exports.isYourBooking = (req, res, next) => {
   console.log("he llegado al middleware")
   const { id } = req.params;
-    const userId = req.session.userId;
-    
+  const userId = req.session.userId;
 
-    if (req.user.role === "guest") {
-        Booking.find({ user: userId, _id: id  })
-            .populate("castle")
-            .populate("user")
-            .then((booking) => {
-               
-                if (!booking || booking.length === 0) next(createError(403, "You can't access that booking"));
-                else res.json(booking)
-            })
-            .catch((error) => next(error))
-    }
 
-    if (req.user.role === "host") {
-        Booking.findById(id)
-            .then((booking) => {
-              
-                const castleId = booking.castle.toString();
-               
-                Castle.findById(castleId)
-                    .then((castle) => {
-                        if (castle.user.toString() === userId) {
-                            next()
-                        } else {
-                            next(createError(403, "Forbidden"));
-                        }
-                    })
-                    .catch((error) => next(error));
-            })
-            .catch((error) => next(error));
-    }
+  if (req.user.role === "guest") {
+    Booking.find({ user: userId, _id: id })
+      .then((booking) => {
+
+        if (!booking || booking.length === 0) next(createError(404, "Booking not found"));
+        else next()
+      })
+      .catch((error) => next(error))
+  }
+
+  if (req.user.role === "host") {
+    Booking.findById(id)
+      .then((booking) => {
+
+        const castleId = booking.castle.toString();
+
+        Castle.findById(castleId)
+          .then((castle) => {
+            if (castle.user.toString() === userId) {
+              next()
+            } else {
+              next(createError(403, "Forbidden"));
+            }
+          })
+          .catch((error) => next(error));
+      })
+      .catch((error) => next(error));
+  }
 }
 
 
@@ -118,4 +116,22 @@ module.exports.isGuest = (req, res, next) => {
   } else {
     next(createError(403, "Forbidden, you are not a guest!"))
   }
+}
+
+module.exports.haveReview = (req, res, next) => {
+  const id = req.body.booking;
+
+  Booking.findById(id)
+    .then((booking) => {
+      if (booking.review) {
+        if (dayjs(dayjs()).isAfter(booking.checkOut)) {
+          next()
+        } else {
+          next(createError(403, "Booking is not finished"))
+        }
+      } else {
+        next(createError(403, "Booking already has a review"))
+      }
+    })
+    .catch((error) => next(error))
 }

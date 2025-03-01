@@ -27,13 +27,9 @@ router.get("/search", search.list)
 router.get("/bookings", auth.isAuthenticated, bookings.list);
 router.get("/bookings/:id", auth.isAuthenticated, auth.isYourBooking, bookings.detail);
 router.post("/bookings", auth.isAuthenticated, auth.isGuest, bookings.create);
-router.delete("/bookings/:id", auth.isAuthenticated, auth.isGuest, bookings.delete);
+router.delete("/bookings/:id", auth.isAuthenticated, auth.isGuest, auth.isYourBooking, bookings.delete);
 
-
-router.get("/users/:id/reviews", auth.isAuthenticated, users.listReviews);
-router.post("/users/:id/reviews", auth.isAuthenticated, auth.isGuest, users.createReview);
-router.patch("/users/:id/reviews/:id", auth.isAuthenticated, auth.isGuest, users.updateReview);
-
+router.post("/bookings/:id/reviews", auth.isAuthenticated, auth.isGuest, auth.haveReview, bookings.createReview);
 
 router.post("/sessions", sessions.create);
 router.delete("/sessions", auth.isAuthenticated, sessions.destroy);

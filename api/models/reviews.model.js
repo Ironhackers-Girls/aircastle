@@ -14,13 +14,17 @@ const schema = new mongoose.Schema(
             type: String,
             required: true
         },
-        user: {
+        host: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User"
         },
         castle: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Castle"
+            ref: "Booking"
+        },
+        user : {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
         }
     },
     {

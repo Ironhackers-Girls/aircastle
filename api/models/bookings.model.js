@@ -38,6 +38,10 @@ const bookingSchema = new mongoose.Schema(
         totalPrice: {
             type: Number,
             required: [true, "Total Price is required"]
+        },
+        review: {
+            type: Boolean,
+            default: false
         }
     },
     {

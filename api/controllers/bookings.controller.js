@@ -1,6 +1,7 @@
 const createError = require("http-errors");
 const Booking = require("../models/bookings.model");
 const Castle = require("../models/castles.model");
+const Review = require("../models/reviews.model")
 
 module.exports.list = (req, res, next) => {
     const userId = req.session.userId;
@@ -76,3 +77,19 @@ module.exports.delete = (req, res, next) => {
         })
         .catch((error) => next(error))
 };
+
+module.exports.createReview = (req, res, next) => {
+    Review.create({
+        title: req.body.title,
+        rating: req.body.rating,
+        text: req.body.text,
+        user: req.session.userId,
+        booking: req.params.id,
+        host: req.body.host
+    })
+        .then((review) => res.status(201).json(review))
+        .catch((error) => next(error));
+};
+
+
+
