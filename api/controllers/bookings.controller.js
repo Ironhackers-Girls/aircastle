@@ -5,14 +5,11 @@ const Review = require("../models/reviews.model")
 
 module.exports.list = (req, res, next) => {
     const userId = req.session.userId;
-    console.log(req.session.iserId);
-    console.log(req.user.id);
 
     if (req.user.role === "guest") {
         Booking.find({ user: userId})
             .populate("castle")
             .then((bookings) => {
-                console.log("castles from user")
                 res.json(bookings)
             })
             .catch((error) => next(error))
@@ -51,16 +48,16 @@ module.exports.create = (req, res, next) => {
 };
 
 
-module.exports.detail = (req, res, next) => {
-    console.log("he llegado al controlador");
+module.exports.detail = (req, res, next) => {;
     const { id } = req.params;
 
     Booking.findById(id)
-    .populate("castle")
+    .populate("castle", "-reviews")
     .populate("user")
+    .populate("review", "title rating text" )
     .then((booking) => {
         if(!booking) next(createError(404, "Booking not found"));
-        else res.json(booking)
+         else res.json(booking)
     })
     .catch((error) => next(error))
     
@@ -79,15 +76,23 @@ module.exports.delete = (req, res, next) => {
 };
 
 module.exports.createReview = (req, res, next) => {
+    const { id } = req.params;
+
     Review.create({
         title: req.body.title,
         rating: req.body.rating,
         text: req.body.text,
         user: req.session.userId,
-        booking: req.params.id,
-        host: req.body.host
+        castle: req.castleId
     })
-        .then((review) => res.status(201).json(review))
+        .then((review) => {
+            const update = {
+                review: review._id
+            }
+            Booking.findByIdAndUpdate(id, update, { runValidators: true, new: true })
+                .then((booking) => res.status(201).json(review))
+                .catch((error) => next(error))
+        })
         .catch((error) => next(error));
 };
 

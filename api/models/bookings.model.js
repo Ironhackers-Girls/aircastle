@@ -40,8 +40,8 @@ const bookingSchema = new mongoose.Schema(
             required: [true, "Total Price is required"]
         },
         review: {
-            type: Boolean,
-            default: false
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Review"
         }
     },
     {

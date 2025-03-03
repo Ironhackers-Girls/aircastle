@@ -4,23 +4,22 @@ const schema = new mongoose.Schema(
     {
         title: {
             type: String,
-            required: true
+            required: true,
         },
         rating: {
             type: Number,
-            required: true
+            required: true,
+            min: 1,
+            max: 5
         },
         text: {
             type: String,
             required: true
         },
-        host: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User"
-        },
         castle: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Booking"
+            ref: "Castle",
+            required: true
         },
         user : {
             type: mongoose.Schema.Types.ObjectId,
@@ -40,6 +39,6 @@ const schema = new mongoose.Schema(
     }
 );
 
-const Reviews = mongoose.model("Reviews", schema);
+const Review = mongoose.model("Review", schema);
 
-module.exports = Reviews;
+module.exports = Review;

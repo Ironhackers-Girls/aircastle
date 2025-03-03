@@ -2,6 +2,7 @@ const createError = require("http-errors");
 const User = require("../models/user.model");
 const Castle = require("../models/castles.model");
 const Booking = require("../models/bookings.model");
+const dayjs = require("../config/dayjs.config");
 
 module.exports.loadSessionUser = (req, res, next) => {
   const { userId } = req.session;
@@ -66,7 +67,6 @@ module.exports.isYourCastle = (req, res, next) => {
 }
 
 module.exports.isYourBooking = (req, res, next) => {
-  console.log("he llegado al middleware")
   const { id } = req.params;
   const userId = req.session.userId;
 
@@ -119,12 +119,14 @@ module.exports.isGuest = (req, res, next) => {
 }
 
 module.exports.haveReview = (req, res, next) => {
-  const id = req.body.booking;
+  const { id } = req.params;
 
   Booking.findById(id)
     .then((booking) => {
-      if (booking.review) {
+      if (!booking) next(createError(404, "Booking not found"));
+      if (!booking.review) {
         if (dayjs(dayjs()).isAfter(booking.checkOut)) {
+          req.castleId = booking.castle;
           next()
         } else {
           next(createError(403, "Booking is not finished"))

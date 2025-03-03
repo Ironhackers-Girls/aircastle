@@ -2,6 +2,7 @@ const createError = require("http-errors");
 const Castle = require("../models/castles.model");
 const Booking = require("../models/bookings.model");
 const dayjs = require("dayjs");
+const Review = require("../models/reviews.model");
 
 module.exports.list = async (req, res, next) => {
     const { city,
@@ -59,6 +60,8 @@ module.exports.detail = async (req, res, next) => {
 
         const available = bookingsOfCastle.length === 0;
 
+        const reviewsArray = await Review.find({ castle : id});
+
         res.json({
             _id: castle._id,
             title: castle.title,
@@ -76,6 +79,7 @@ module.exports.detail = async (req, res, next) => {
                 email: castle.user.email,
                 phone: castle.user.phone
             },
+            reviews: reviewsArray,
             available: available,
             checkIn: checkIn,
             checkOut: checkOut
@@ -88,7 +92,6 @@ module.exports.detail = async (req, res, next) => {
 module.exports.create = (req, res, next) => {
     const castle = req.body;
     castle.user = req.session.userId;
-    console.log(req.session.userId);
 
     if (castle.address?.location) {
         const { lat, lng } = castle.address.location || {};
@@ -130,7 +133,7 @@ module.exports.update = (req, res, next) => {
             if (!castle) next(this.createError(404, "Castle not found"));
             else res.status(201).json(castle);
         })
-        .catch(error => next(error))
+        .catch((error) => next(error))
 };
 
 

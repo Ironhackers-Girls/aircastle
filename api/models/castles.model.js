@@ -63,7 +63,11 @@ const castleSchema = new mongoose.Schema(
             required: [true, "Bathroom is required"]
         },
         amenities: [String],
-        services: [String]
+        services: [String],
+        reviews: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Review"
+        }]
     },
     {
         timestamps: true,
