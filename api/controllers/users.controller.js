@@ -73,6 +73,10 @@ module.exports.profile = (req, res, next) => {
     .catch(next); 
 };
 
+module.exports.myprofile = (req, res, next) => {
+    res.json(req.user);
+};
+
 
 
 

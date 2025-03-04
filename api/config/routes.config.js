@@ -9,10 +9,11 @@ const castles = require("../controllers/castles.controller");
 const bookings = require("../controllers/bookings.controller");
 const search = require("../controllers/search.controller");
 
-router.get("/users/:username", auth.userIsLoggedIn, users.profile);
+
 router.post("/users", users.create);
 router.patch("/users/myprofile", auth.isAuthenticated, users.update);
-
+router.get("/users/myprofile", auth.isAuthenticated, users.myprofile);
+router.get("/users/:username", auth.userIsLoggedIn, users.profile);
 
 router.get("/castles", castles.list);
 router.get("/castles/:id", castles.detail);
