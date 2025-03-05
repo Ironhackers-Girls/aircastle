@@ -29,8 +29,6 @@ module.exports.create = (req, res, next) => {
                     name: req.body.name,
                     phone: req.body.phone,
                     username: req.body.username
-                    
-
                 }).then((user) => {
                     res.status(201).json(user);
                     
@@ -41,8 +39,6 @@ module.exports.create = (req, res, next) => {
 };
 
 module.exports.update = (req, res, next) => {
-    const { username } = req.params; 
-
     const permittedBody = {
         email: req.body.email,
         password: req.body.password,

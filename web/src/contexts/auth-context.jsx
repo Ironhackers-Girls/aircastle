@@ -7,7 +7,7 @@ export function AuthProvider({ children }) {
     const [user, setUser] = useState();
 
     useEffect(() => {
-        myProfile(user)
+        myProfile()
             .then((data) => setUser(data))
             .catch(() => setUser(null));
     }, []);

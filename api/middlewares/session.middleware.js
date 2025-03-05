@@ -6,14 +6,12 @@ const dayjs = require("../config/dayjs.config");
 
 module.exports.loadSessionUser = (req, res, next) => {
   const { userId } = req.session;
-  console.log(userId);
   if (!userId) {
     req.user = undefined;
     next();
   } else {
     User.findById(userId)
       .then((user) => {
-        console.log(user)
         req.user = user;
         next();
       })

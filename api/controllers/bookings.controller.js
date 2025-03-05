@@ -15,7 +15,6 @@ module.exports.list = (req, res, next) => {
             .catch((error) => next(error))
     }
 
-
     if (req.user.role === "host") {
 
         Castle.find({ user: userId })
