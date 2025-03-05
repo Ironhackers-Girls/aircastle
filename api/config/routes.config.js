@@ -8,10 +8,11 @@ const sessions = require("../controllers/sessions.controller");
 const castles = require("../controllers/castles.controller");
 const bookings = require("../controllers/bookings.controller");
 const search = require("../controllers/search.controller");
+const storage = require("../config/storage.config");
 
 router.get("/users/myprofile", auth.isAuthenticated, users.myprofile);
 router.get("/users/:username", auth.userIsLoggedIn, users.profile);
-router.post("/users", users.create);
+router.post("/users", storage.single("avatar"), users.create);
 router.patch("/users/myprofile", auth.isAuthenticated, users.update);
 
 

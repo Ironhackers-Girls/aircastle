@@ -1,7 +1,5 @@
 const createError = require("http-errors");
 const User = require("../models/user.model");
-const Review = require("../models/reviews.model");
-const Castle = require("../models/castles.model");
 
 module.exports.create = (req, res, next) => {
     const { email, username, role } = req.body;
@@ -28,7 +26,8 @@ module.exports.create = (req, res, next) => {
                     password: req.body.password,
                     name: req.body.name,
                     phone: req.body.phone,
-                    username: req.body.username
+                    username: req.body.username,
+                    avatar: req.file?.path
                 }).then((user) => {
                     res.status(201).json(user);
                     
@@ -44,7 +43,8 @@ module.exports.update = (req, res, next) => {
         password: req.body.password,
         username: req.body.username,
         name: req.body.name,
-        phone: req.body.phone
+        phone: req.body.phone,
+        avatar: req.file?.path
     };
 
     Object.keys(permittedBody).forEach((key) => {

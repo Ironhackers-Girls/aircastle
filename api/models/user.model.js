@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const { isURL } = require('../validators/string.validators');
 
 const SALT_WORK_FACTOR = 10;
 const EMAIL_PATTERN = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -47,7 +48,19 @@ const userSchema = new mongoose.Schema(
             trim: true,
             required: [true, "Phone is requiered"],
             match: [PHONE_PATTERN, "invalid phone pattern"]
-        }
+        },
+        avatar: {
+            type: String,
+            default: function () {
+              return `https://res.cloudinary.com/doid35fhn/image/upload/v1741205412/aircastle/rmymt3ttwtlumo41lk9l.avif`;
+            },
+            validate: {
+              validator: isURL,
+              message: function () {
+                return "Invalid avatar URL";
+              },
+            },
+          },
     },
     {
         timestamps: true,
