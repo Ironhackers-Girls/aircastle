@@ -21,6 +21,15 @@ const updateProfile = (user) => http.patch("/users/myprofile", user);
 const login = (user) => http.post("/sessions", user);
 const logout = () => http.delete("/sessions");
 
+
+const listCastles = () => http.get("/castles");
+const getCastle = (id) => http.get(`/castles/${id}`);
+const createCastle = (castle) => http.post("/castles", castle);
+const updateCastle = (id, castle) => http.patch(`/castles/${id}`, castle);
+const deleteCastle = (id) => http.delete(`/castles/${id}`)
+
+const searchCastle = (params) => http.get("/search", { params })
+
 export {
     profile,
     register,
@@ -28,4 +37,10 @@ export {
     myProfile,
     login,
     logout,
+    listCastles,
+    getCastle,
+    createCastle,
+    updateCastle,
+    deleteCastle,
+    searchCastle
 }

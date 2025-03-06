@@ -1,0 +1,63 @@
+{
+            "title": "Chateau Mont Joly B&B",
+            "description": "Built in the 19th century",
+            "user": "67bf5b72c76c4ea109e22694", 
+            "address": {
+              "city": "pau",
+              "country": "france",
+              "location": {
+                "coordinates": [ -0.39919, 43.24467 ]
+              }
+            },
+            "capacity": 12,
+            "pricePerNight": 1500,
+            "rooms": 8,
+            "bathrooms": 8,
+            "amenities": [
+                "Wifi",
+                "Heating",
+                "Breakfast",
+                "Towels",
+                "Sheets",
+                "Microwave",
+                "Fridge",
+                "Cooking Utensils",
+                "Oven",
+                "Dishwasher",
+                "TV",
+                "Washingmachine",
+                "Patio or balcony",
+                "Indoor fireplace",
+                "Air Conditioner",
+                "Barbecue",
+                "Free Parking",
+                "Gym",
+                "Pool",
+                "Garden",
+                "Pet-Friendly",
+                "Piano"
+              ]
+              ,
+            "services": ["Treasure Hunts", "Small Farm", "Horseback Riding"],
+            "images": [
+                {
+                  "url": "https://a0.muscache.com/im/pictures/a5d410d9-84bc-4b02-bb2c-d2dc4b840f66.jpg"
+                },
+                {
+                  "url": "https://a0.muscache.com/im/pictures/miso/Hosting-13218205/original/a3c0eee3-4134-420d-a734-bcbbda884ca7.jpeg"
+                },
+                {
+                  "url": "https://a0.muscache.com/im/pictures/miso/Hosting-13218205/original/b81f3bfa-93f0-4afb-84b7-5ba3a4106095.jpeg"
+                },
+                {
+                    "url":"https://a0.muscache.com/im/pictures/miso/Hosting-13218205/original/bcfa783c-1cb2-44b4-bf14-04a31da1f0b2.jpeg"
+                },
+                {
+                    "url":"https://a0.muscache.com/im/pictures/a2320531-760e-4ed3-9142-5ab526258d2d.jpg"
+                },
+                {
+                    "url":"https://a0.muscache.com/im/pictures/miso/Hosting-13218205/original/59229734-44c2-42bb-9b0d-42f2ac2a15a5.jpeg"
+                }
+              ]
+        }
+        

@@ -31,6 +31,7 @@ module.exports.list = async (req, res, next) => {
         if (idHost) criterial.user = idHost;
 
         Castle.find(criterial)
+        .populate("user")
         .then((castles) => {
             if (!castles || castles.length === 0) {
                 return res.status(204).send();
@@ -76,10 +77,10 @@ module.exports.detail = async (req, res, next) => {
             user: {
                 username: castle.user.username,
                 name: castle.user.name,
-                email: castle.user.email,
-                phone: castle.user.phone
+                avatar: castle.user.avatar
             },
             reviews: reviewsArray,
+            images: castle.images,
             available: available,
             checkIn: checkIn,
             checkOut: checkOut

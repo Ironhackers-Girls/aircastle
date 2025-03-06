@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const { isURL } = require('../validators/string.validators');
+
 
 const castleSchema = new mongoose.Schema(
     {
@@ -28,9 +30,10 @@ const castleSchema = new mongoose.Schema(
                     lowercase: true,
                     required: [true, "City is required giving an address"],
                 },
-                street: {
+                country: {
                     type: String,
-                    required: [true, "Street is required giving an address"],
+                    lowercase: true,
+                    required: [true, "Country is required giving an address"],
                 },
                 location: {
                     type: {
@@ -67,7 +70,21 @@ const castleSchema = new mongoose.Schema(
         reviews: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: "Review"
-        }]
+        }],
+        images: [
+            {
+                url: {
+                    type: String,
+                    required: true,
+                    validate: {
+                        validator: isURL,
+                        message: function() {
+                            return "Invalid image URL";
+                        },
+                    },
+                },
+            },
+        ]
     },
     {
         timestamps: true,
