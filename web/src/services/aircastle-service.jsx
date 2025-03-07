@@ -23,12 +23,23 @@ const logout = () => http.delete("/sessions");
 
 
 const listCastles = () => http.get("/castles");
-const getCastle = (id) => http.get(`/castles/${id}`);
+const getCastle = (id, checkIn, checkOut) => {
+    if (!checkIn || !checkOut) {
+      return http.get(`/castles/${id}`);
+    }  
+    return http.get(`/castles/${id}?checkIn=${checkIn}&checkOut=${checkOut}`);
+  };
+  
 const createCastle = (castle) => http.post("/castles", castle);
 const updateCastle = (id, castle) => http.patch(`/castles/${id}`, castle);
 const deleteCastle = (id) => http.delete(`/castles/${id}`)
 
 const searchCastle = (params) => http.get("/search", { params })
+
+const listBookings = () => http.get("/bookings");
+const getBooking = (id) => http.get(`/bookings/${id}`)
+//const createBooking = (booking) =>http.post("/bookings", booking);
+const deleteBooking = (id) => http.delete(`/bookings/${id}`)
 
 export {
     profile,
@@ -42,5 +53,8 @@ export {
     createCastle,
     updateCastle,
     deleteCastle,
-    searchCastle
+    searchCastle,
+    listBookings,
+    getBooking,
+    deleteBooking,
 }
