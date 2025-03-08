@@ -5,7 +5,6 @@ const { isURL } = require('../validators/string.validators');
 const SALT_WORK_FACTOR = 10;
 const EMAIL_PATTERN = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const PASSWORD_PATTERN = /^.{8,}$/;
-const PHONE_PATTERN = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
 const USERNAME_PATTERN = /^[a-z0-9_]+$/;
 
 const userSchema = new mongoose.Schema(
@@ -47,7 +46,6 @@ const userSchema = new mongoose.Schema(
             type: String,
             trim: true,
             required: [true, "Phone is requiered"],
-            match: [PHONE_PATTERN, "invalid phone pattern"]
         },
         avatar: {
             type: String,
@@ -69,7 +67,6 @@ const userSchema = new mongoose.Schema(
                 delete ret.__v;
                 delete ret._id;
                 delete ret.password;
-                delete ret.phone;
                 delete ret.email;
 
                 ret.id = doc.id;

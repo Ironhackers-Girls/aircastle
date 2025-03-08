@@ -1,0 +1,490 @@
+{
+	"info": {
+		"_postman_id": "9bdaaa82-8536-43d9-951e-f1e26b6aa43e",
+		"name": "AirCastle",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38382007"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Users",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "role",
+									"value": "guest",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "sara",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "sara002",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456789",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "+1234567890",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "sara002@example.com",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/C:/Users/Ana/Downloads/man-avatar-profile-picture-isolated-background-avatar-profile-picture-man_1293239-4866.avif"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/users",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"saraCambio2\",\r\n    \"phone\": \"+66666666661\"\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/users/myprofile",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"users",
+								"myprofile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_API_URL}}/users/sara",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"users",
+								"sara"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Myprofile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_API_URL}}/users/myprofile",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"users",
+								"myprofile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sessions",
+			"item": [
+				{
+					"name": "Sessions",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"sara@example.com\",\r\n    \"password\": \"123456789\"\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/sessions",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"sessions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sessions",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_API_URL}}/sessions",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"sessions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Castles",
+			"item": [
+				{
+					"name": "Castles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_API_URL}}/castles",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"castles"
+							],
+							"query": [
+								{
+									"key": "city",
+									"value": "Paris",
+									"disabled": true
+								},
+								{
+									"key": "idHost",
+									"value": "67bf7141ddcdc249664bd178",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Castles",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n    \"title\": \"2Hermosa casa en la playa\",\r\n    \"description\": \"Esta casa está situada frente al mar, con acceso directo a la playa. Es ideal para familias grandes o grupos de amigos. Cuenta con amplias áreas comunes, piscina privada y una terraza con vistas espectaculares. Disfruta de un entorno natural y relajante, perfecto para desconectar de la rutina.\",\r\n    \"user\": \"60d3b41abd4d29d5f6000001\",\r\n    \"address\": {\r\n      \"city\": \"mazatlán\",\r\n      \"street\": \"Avenida del Mar, 1001\",\r\n      \"location\": {\r\n        \"type\": \"Point\",\r\n        \"coordinates\": [-106.41595, 23.2398]\r\n      }\r\n    },\r\n    \"capacity\": 10,\r\n    \"pricePerNight\": 1500,\r\n    \"rooms\": 5,\r\n    \"bathrooms\": 4,\r\n    \"amenities\": [\"Wi-Fi\", \"Piscina\", \"Aire acondicionado\", \"Televisión por cable\", \"Gimnasio\", \"Terraza\"],\r\n    \"services\": [\"Limpieza diaria\", \"Cocinero privado\", \"Traslados al aeropuerto\"]\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/castles",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"castles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Castle",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_API_URL}}/castles/67c9ea493d3632bdbcb71f06?checkIn=08/07/2025&checkOut=10/07/2025",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"castles",
+								"67c9ea493d3632bdbcb71f06"
+							],
+							"query": [
+								{
+									"key": "checkIn",
+									"value": "08/07/2025"
+								},
+								{
+									"key": "checkOut",
+									"value": "10/07/2025"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Castle",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"capacity\": 120\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/castles/67c2d6f601d16643fa363d34",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"castles",
+								"67c2d6f601d16643fa363d34"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Castle",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_API_URL}}/castles/67c2d6f601d16643fa363d34",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"castles",
+								"67c2d6f601d16643fa363d34"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bookings",
+			"item": [
+				{
+					"name": "Bookings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_API_URL}}/bookings",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"bookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bookings",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"castle\": \"67bf63ee9cf63240ce16dd35\", \r\n  \"checkIn\": \"2027-04-01T15:00:00Z\", \r\n  \"checkOut\": \"2027-04-05T11:00:00Z\",  \r\n  \"totalPrice\": 600\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/bookings",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"bookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Booking",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_API_URL}}/bookings/67c2fa4f86b7811f01df78c1",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"bookings",
+								"67c2fa4f86b7811f01df78c1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Booking",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_API_URL}}/bookings/67c0c2378e821989bae4d67d",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"bookings",
+								"67c0c2378e821989bae4d67d"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reviews",
+			"item": [
+				{
+					"name": "Reviews",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"6 review\",\r\n    \"rating\": 5,\r\n    \"text\": \"prueba\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/bookings/67c2fa4f86b7811f01df78c1/reviews",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"bookings",
+								"67c2fa4f86b7811f01df78c1",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Search",
+			"item": [
+				{
+					"name": "Search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_API_URL}}/search?capacity=1009",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"search"
+							],
+							"query": [
+								{
+									"key": "capacity",
+									"value": "1009"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_API_URL",
+			"value": "http://localhost:3000/api/v1",
+			"type": "string"
+		}
+	]
+}
