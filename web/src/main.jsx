@@ -4,7 +4,7 @@ import './index.css'
 import App from './app'
 import { BrowserRouter as Router } from 'react-router-dom';
 import { AuthProvider } from "./contexts/auth-context.jsx"
-import 'rsuite/dist/rsuite.min.css';
+
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
