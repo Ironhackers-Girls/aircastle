@@ -45,8 +45,8 @@ module.exports.list = async (req, res, next) => {
 module.exports.detail = async (req, res, next) => {
     let { id, checkIn, checkOut } = req.params;
 
-    if (!checkIn) checkIn = dayjs().toISOString();
-    if (!checkOut) checkOut = dayjs().add(1, 'day').toISOString();
+    if (!checkIn) checkIn = dayjs().add(1, 'day').toISOString();
+    if (!checkOut) checkOut = dayjs().add(2, 'day').toISOString();
 
     try {
         const castle = await Castle.findById(id).populate('user')

@@ -13,7 +13,7 @@ const storage = require("../config/storage.config");
 router.get("/users/myprofile", auth.isAuthenticated, users.myprofile);
 router.get("/users/:username", auth.userIsLoggedIn, users.profile);
 router.post("/users", storage.single("avatar"), users.create);
-router.patch("/users/myprofile", auth.isAuthenticated, users.update);
+router.patch("/users/myprofile", auth.isAuthenticated, storage.single("avatar"), users.update);
 
 
 router.get("/castles", castles.list);

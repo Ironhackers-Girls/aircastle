@@ -81,7 +81,13 @@ function CastleDetail() {
           </div>
 
           <div>
-            <BookingItem price={castle.pricePerNight} checkIn={castle.checkIn} checkOut={castle.checkOut} onDates={handleDates} />
+            <BookingItem 
+              totalPrice={castle.pricePerNight} 
+              checkIn={castle.checkIn} 
+              checkOut={castle.checkOut}  
+              onDates={handleDates}
+              availability={castle.availability}
+              castle={castle._id} />
           </div>
 
           <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pt-6 lg:pr-8 lg:pb-16">

@@ -1,67 +1,43 @@
 import { useAuthContext } from "../contexts/auth-context.jsx";
-import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as AirCastleAPI from "../services/aircastle-service";
 
 function MyProfile() {
-  const { login } = useAuthContext();
-  const [profile, setProfile] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
   const {
     register,
     handleSubmit,
-    setValue,
-    watch,
-    formState: { errors }
+    formState,
+    setError
   } = useForm();
 
-  useEffect(() => {
-    AirCastleAPI.myProfile()
-      .then((user) => {
-        setProfile(user);
-        setValue("name", user.name || "");
-        setValue("phone", user.phone || "");
-      })
-      .catch((error) => {
-        setError(error.message);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, [setValue]);
+  const { user } = useAuthContext();
+  const errors = formState.errors;
 
-  const onSubmit = (data) => {
+  const handleUpdateProfile = async (data) => {
     const formData = new FormData();
 
-    if (data.name !== user.name) formData.append("name", data.name);
-    if (data.phone !== user.phone) formData.append("phone", data.phone);
-    if (data.avatar?.length) formData.append("avatar", data.avatar[0]);
+    formData.append("name", data.name);
+    formData.append("phone", data.phone);
+    formData.append("avatar", data.avatar[0]);
 
-    AirCastleAPI.updateProfile(formData)
-      .then((updatedData) => {
-        setProfile(updatedData);
-        login(updatedData);
-        setError(null);
-      })
-      .catch((error) => {
-        setError(error.message);
-      });
-  };
+    try {
+      await AirCastleAPI.updateProfile(formData)
+      window.location.reload();
+    } catch (error) {
+      setError("api", { message: error.message });
+    }
+  }
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div className="text-red-600">{error}</div>;
 
   return (
     <div className="max-w-4xl mx-auto mt-5">
       <h2 className="text-2xl font-semibold mb-4">My Profile</h2>
 
       <div className="bg-white shadow-md rounded-lg p-6">
-        {profile?.avatar ? (
+        {user?.avatar ? (
           <div className="flex justify-center mb-5">
             <img
-              src={profile.avatar}
+              src={user.avatar}
               alt="Avatar del usuario"
               className="w-32 h-32 rounded-full border border-gray-300 shadow-md"
             />
@@ -70,43 +46,53 @@ function MyProfile() {
           <p className="text-gray-500 text-center">No avatar</p>
         )}
 
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(handleUpdateProfile)}>
           <div className="mb-5">
-            <label className="block text-sm font-medium text-gray-700">Username</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Username
+            </label>
             <input
               type="text"
-              value={profile?.username || ""}
+              value={user?.username || ""}
               className="w-full mt-1 px-4 py-2 border rounded-lg text-gray-700"
               disabled
             />
           </div>
 
           <div className="mb-5">
-            <label className="block text-sm font-medium text-gray-700">Full Name</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Full Name
+            </label>
             <input
               type="text"
-              {...register("name")} 
-              value={watch("name") || ""}
-              onChange={(e) => setValue("name", e.target.value)}
+              {...register("name")}
+              defaultValue={user.name}
               className="w-full mt-1 px-4 py-2 border rounded-lg text-gray-700"
             />
-            {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
+            {errors.name && (
+              <p className="text-red-500 text-sm">{errors.name.message}</p>
+            )}
           </div>
 
           <div className="mb-5">
-            <label className="block text-sm font-medium text-gray-700">Phone</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Phone
+            </label>
             <input
               type="text"
-              {...register("phone")} 
-              value={watch("phone") || ""}
-              onChange={(e) => setValue("phone", e.target.value)}
+              {...register("phone")}
+              defaultValue={user.phone}
               className="w-full mt-1 px-4 py-2 border rounded-lg text-gray-700"
             />
-            {errors.phone && <p className="text-red-500 text-sm">{errors.phone.message}</p>}
+            {errors.phone && (
+              <p className="text-red-500 text-sm">{errors.phone.message}</p>
+            )}
           </div>
 
           <div className="mb-5">
-            <label className="block text-sm font-medium text-gray-700">Avatar</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Avatar
+            </label>
             <input
               type="file"
               {...register("avatar")}
@@ -115,10 +101,12 @@ function MyProfile() {
           </div>
 
           <div className="mb-5">
-            <label className="block text-sm font-medium text-gray-700">Role</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Role
+            </label>
             <input
               type="text"
-              value={profile?.role || ""}
+              value={user?.role || ""}
               className="w-full mt-1 px-4 py-2 border rounded-lg text-gray-700"
               disabled
             />
@@ -130,6 +118,9 @@ function MyProfile() {
           >
             Update Profile
           </button>
+          {errors.api && (
+            <p className="text-red-500 text-sm mt-3">{errors.api.message}</p>
+          )}
         </form>
       </div>
     </div>

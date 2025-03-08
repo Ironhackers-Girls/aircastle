@@ -38,7 +38,7 @@ const searchCastle = (params) => http.get("/search", { params })
 
 const listBookings = () => http.get("/bookings");
 const getBooking = (id) => http.get(`/bookings/${id}`)
-//const createBooking = (booking) =>http.post("/bookings", booking);
+const createBooking = (booking) =>http.post("/bookings", booking);
 const deleteBooking = (id) => http.delete(`/bookings/${id}`)
 
 export {
@@ -57,4 +57,5 @@ export {
     listBookings,
     getBooking,
     deleteBooking,
+    createBooking
 }
