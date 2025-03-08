@@ -8,7 +8,13 @@ module.exports.list = (req, res, next) => {
 
     if (req.user.role === "guest") {
         Booking.find({ user: userId})
-            .populate("castle")
+            .populate({
+                path: "castle",
+                populate: {
+                    path: "user",
+                    model: "User"
+                }
+            })
             .then((bookings) => {
                 res.json(bookings)
             })

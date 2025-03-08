@@ -7,7 +7,6 @@ function CastleList ({ city, lat, lng }) {
     const [castles, setCastles] = useState([])
 
     useEffect(() => {
-        console.log(`RELOADING... ${JSON.stringify({ city, lat, lng })}`)
         AirCastleApi.listCastles({city, lat, lng})
         .then((castles) => setCastles(castles))
         .catch((error) => console.error(error))
