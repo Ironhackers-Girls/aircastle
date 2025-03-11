@@ -12,7 +12,7 @@ function BookingList () {
     }, [])
 
     return (
-        <div>
+        <div className="gap-4">
            {bookingsList.map((booking) => (
             <BookingListItem key={booking.id} booking={booking}/>
             ))} 

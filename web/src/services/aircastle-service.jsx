@@ -42,6 +42,8 @@ const getBooking = (id) => http.get(`/bookings/${id}`)
 const createBooking = (booking) =>http.post("/bookings", booking);
 const deleteBooking = (id) => http.delete(`/bookings/${id}`)
 
+const createReview = (id) => http.get(`/bookings/${id}/reviews`);
+
 export {
     profile,
     register,
@@ -58,5 +60,6 @@ export {
     listBookings,
     getBooking,
     deleteBooking,
-    createBooking
+    createBooking,
+    createReview
 }
