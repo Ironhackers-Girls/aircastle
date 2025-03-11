@@ -14,7 +14,6 @@ function NavBar() {
       console.error("Error:", error);
     }
   };
-  
 
   return (
     <nav className="bg-gray-800">
@@ -35,10 +34,16 @@ function NavBar() {
           <div className="flex items-center space-x-4">
             {user ? (
               <>
+                {user.role === "guest" && (
+                  <Link to="/bookings" className="text-blue-600 dark:text-sky-400">My Bookings</Link>
+                )}
+                {user.role === "host" && (
+                  <Link to="/castles" className="text-blue-600 dark:text-sky-400">My Castles</Link>
+                )}
                 <Link to="/profile" className="text-blue-600 dark:text-sky-400">Profile</Link>
                 <button 
                   onClick={handleLogout} 
-                  className="text-white  px-3 py-2 rounded-md"
+                  className="text-white px-3 py-2 rounded-md"
                 >
                   Logout
                 </button>
@@ -54,4 +59,3 @@ function NavBar() {
 }
 
 export default NavBar;
-
