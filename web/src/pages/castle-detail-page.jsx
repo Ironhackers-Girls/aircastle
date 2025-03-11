@@ -2,13 +2,8 @@ import { useEffect, useState } from "react";
 import * as AirCastleAPI from "../services/aircastle-service";
 import BookingItem from "../components/bookings/booking-item/booking-item";
 import { useNavigate, useParams } from "react-router-dom";
+import dayjs from "../lib/dayjs";
 
-const formatDate = (date) => {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-};
 
 function CastleDetail() {
   const { id, checkIn, checkOut } = useParams();
@@ -22,8 +17,10 @@ function CastleDetail() {
   }, [id, checkIn, checkOut]);  
 
   const handleDates = (dates) => {
-    const checkIn = formatDate(dates[0]); 
-    const checkOut = formatDate(dates[1]);
+    const checkIn = dayjs(dates[0]).format('DD/MM/YYYY');
+    const checkOut = dayjs(dates[1]).format('DD/MM/YYYY');
+    console.log(checkIn)
+    console.log(checkOut)
 
     navigate({
       pathname: `/castles/${id}`,  
