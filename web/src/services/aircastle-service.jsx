@@ -22,7 +22,8 @@ const login = (user) => http.post("/sessions", user);
 const logout = () => http.delete("/sessions");
 
 
-const listCastles = () => http.get("/castles");
+const listCastles = (idHost) => http.get("/castles", { params: { idHost } });
+
 const getCastle = (id, checkIn, checkOut) => {
     if (!checkIn || !checkOut) {
       return http.get(`/castles/${id}`);
