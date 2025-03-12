@@ -30,99 +30,99 @@ function MyProfile() {
 
 
   return (
-    <div className="max-w-4xl mx-auto mt-5">
-      <h2 className="text-2xl font-semibold mb-4">My Profile</h2>
+    <div className="max-w-4xl mx-auto mt-10 p-6 bg-white shadow-xl rounded-xl border border-[var(--light-gray)]">
+      <h2 className="text-3xl font-bold text-black mb-6">My Profile</h2>
 
-      <div className="bg-white shadow-md rounded-lg p-6">
+      <div className="flex justify-center mb-6">
         {user?.avatar ? (
-          <div className="flex justify-center mb-5">
-            <img
-              src={user.avatar}
-              alt="Avatar del usuario"
-              className="w-32 h-32 rounded-full border border-gray-300 shadow-md"
-            />
-          </div>
+          <img
+            src={user.avatar}
+            alt="User Avatar"
+            className="w-32 h-32 rounded-full border-4 border-[var(--light-gray)] shadow-lg object-cover"
+          />
         ) : (
-          <p className="text-gray-500 text-center">No avatar</p>
+          <div className="w-32 h-32 rounded-full bg-[var(--light-gray)] flex items-center justify-center text-[var(--dark-gray)] text-sm">
+            No Avatar
+          </div>
         )}
-
-        <form onSubmit={handleSubmit(handleUpdateProfile)}>
-          <div className="mb-5">
-            <label className="block text-sm font-medium text-gray-700">
-              Username
-            </label>
-            <input
-              type="text"
-              value={user?.username || ""}
-              className="w-full mt-1 px-4 py-2 border rounded-lg text-gray-700"
-              disabled
-            />
-          </div>
-
-          <div className="mb-5">
-            <label className="block text-sm font-medium text-gray-700">
-              Full Name
-            </label>
-            <input
-              type="text"
-              {...register("name")}
-              defaultValue={user.name}
-              className="w-full mt-1 px-4 py-2 border rounded-lg text-gray-700"
-            />
-            {errors.name && (
-              <p className="text-red-500 text-sm">{errors.name.message}</p>
-            )}
-          </div>
-
-          <div className="mb-5">
-            <label className="block text-sm font-medium text-gray-700">
-              Phone
-            </label>
-            <input
-              type="text"
-              {...register("phone")}
-              defaultValue={user.phone}
-              className="w-full mt-1 px-4 py-2 border rounded-lg text-gray-700"
-            />
-            {errors.phone && (
-              <p className="text-red-500 text-sm">{errors.phone.message}</p>
-            )}
-          </div>
-
-          <div className="mb-5">
-            <label className="block text-sm font-medium text-gray-700">
-              Avatar
-            </label>
-            <input
-              type="file"
-              {...register("avatar")}
-              className="w-full mt-1 px-4 py-2 border rounded-lg text-gray-700"
-            />
-          </div>
-
-          <div className="mb-5">
-            <label className="block text-sm font-medium text-gray-700">
-              Role
-            </label>
-            <input
-              type="text"
-              value={user?.role || ""}
-              className="w-full mt-1 px-4 py-2 border rounded-lg text-gray-700"
-              disabled
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-3 rounded-lg font-semibold"
-          >
-            Update Profile
-          </button>
-          {errors.api && (
-            <p className="text-red-500 text-sm mt-3">{errors.api.message}</p>
-          )}
-        </form>
       </div>
+
+      <form onSubmit={handleSubmit(handleUpdateProfile)} className="space-y-6">
+        <div>
+          <label className="block text-sm font-semibold text-black">
+            Username
+          </label>
+          <input
+            type="text"
+            value={user?.username || ""}
+            className="w-full mt-2 px-4 py-3 border border-[var(--light-gray)] rounded-lg text-black bg-[var(--light-gray)] cursor-not-allowed"
+            disabled
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-semibold text-black">
+            Full Name
+          </label>
+          <input
+            type="text"
+            {...register("name")}
+            defaultValue={user.name}
+            className="w-full mt-2 px-4 py-3 border border-[var(--light-gray)] rounded-lg text-black bg-white focus:outline-none focus:ring-2 focus:ring-[var(--purple)]"
+          />
+          {errors.name && (
+            <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
+          )}
+        </div>
+
+        <div>
+          <label className="block text-sm font-semibold text-black">
+            Phone
+          </label>
+          <input
+            type="text"
+            {...register("phone")}
+            defaultValue={user.phone}
+            className="w-full mt-2 px-4 py-3 border border-[var(--light-gray)] rounded-lg text-black bg-white focus:outline-none focus:ring-2 focus:ring-[var(--purple)]"
+          />
+          {errors.phone && (
+            <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>
+          )}
+        </div>
+
+        <div>
+          <label className="block text-sm font-semibold text-black">
+            Avatar
+          </label>
+          <input
+            type="file"
+            {...register("avatar")}
+            className="w-full mt-2 px-4 py-3 border border-[var(--light-gray)] rounded-lg text-black bg-white focus:outline-none focus:ring-2 focus:ring-[var(--purple)]"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-semibold text-black">
+            Role
+          </label>
+          <input
+            type="text"
+            value={user?.role || ""}
+            className="w-full mt-2 px-4 py-3 border border-[var(--light-gray)] rounded-lg text-black bg-[var(--light-gray)] cursor-not-allowed"
+            disabled
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="w-64 mx-auto bg-[var(--purple)] text-white py-3 rounded-lg font-bold shadow-md hover:opacity-90 transition cursor-pointer"
+        >
+          Update Profile
+        </button>
+        {errors.api && (
+          <p className="text-red-500 text-sm mt-3">{errors.api.message}</p>
+        )}
+      </form>
     </div>
   );
 }
