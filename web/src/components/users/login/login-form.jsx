@@ -76,7 +76,7 @@ function LoginForm() {
       </form>
 
       <p className="mt-4 text-center text-sm text-[var(--dark-gray)]">
-        Don´t have an account?{' '}
+        Not a member?{' '}
         <Link to="/register" className="text-[var(--purple)] font-semibold hover:underline">
           Register here
         </Link>
