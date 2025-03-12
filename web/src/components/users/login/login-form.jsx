@@ -69,7 +69,7 @@ function LoginForm() {
 
         <button
           type="submit"
-          className="w-full py-2 rounded-lg bg-[var(--purple)] text-[var(--white)] font-bold hover:opacity-90"
+          className="w-full py-2 rounded-lg bg-[var(--purple)] text-[var(--white)] font-bold hover:opacity-90 active:scale-95 active:shadow-inner transition-all duration-150 cursor-pointer"
         >
           Continue
         </button>
@@ -77,7 +77,7 @@ function LoginForm() {
 
       <p className="mt-4 text-center text-sm text-[var(--dark-gray)]">
         Not a member?{' '}
-        <Link to="/register" className="text-[var(--purple)] font-semibold hover:underline">
+        <Link to="/register" className="text-[var(--purple)] font-semibold hover:underline cursor-pointer">
           Register here
         </Link>
       </p>
