@@ -1,5 +1,5 @@
 import PageLayout from "./components/layouts/page-layout/page-layout";
-
+import ScrollToTop from "./components/layouts/scroll/scroll-to-top"
 import { Route, Routes } from "react-router-dom";
 import {
   CastleDetail,
@@ -9,6 +9,7 @@ import {
   BookingsPage,
   CastlesPage,
   CastleUpdatePage,
+  NotFoundPage
 } from "./pages/index";
 import RegisterPage from "./pages/register-page";
 import Footer from "./components/ui/footer/footer";
@@ -19,6 +20,7 @@ function App() {
   return (
     <>
       <PageLayout>
+        <ScrollToTop/>
         <NavBar />
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -57,6 +59,7 @@ function App() {
               </PrivateRoute>
             }
           />
+          <Route path='*' element={<NotFoundPage/>} />
         </Routes>
         <Footer />
       </PageLayout>
