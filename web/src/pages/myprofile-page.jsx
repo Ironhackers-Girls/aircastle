@@ -97,7 +97,7 @@ function MyProfile() {
           <input
             type="file"
             {...register("avatar")}
-            className="w-full mt-2 px-4 py-3 border border-[var(--light-gray)] rounded-lg text-black bg-white focus:outline-none focus:ring-2 focus:ring-[var(--purple)]"
+            className="w-full mt-2 px-4 py-3 border border-[var(--light-gray)] rounded-lg text-black bg-white focus:outline-none focus:ring-2 focus:ring-[var(--purple)] cursor-pointer"
           />
         </div>
 
@@ -115,7 +115,7 @@ function MyProfile() {
 
         <button
           type="submit"
-          className="w-64 mx-auto bg-[var(--purple)] text-white py-3 rounded-lg font-bold shadow-md hover:opacity-90 transition cursor-pointer"
+          className="w-full py-2 rounded-lg bg-[var(--purple)] text-[var(--white)] font-bold hover:opacity-90 active:scale-95 active:shadow-inner transition-all duration-150 cursor-pointer"
         >
           Update Profile
         </button>
