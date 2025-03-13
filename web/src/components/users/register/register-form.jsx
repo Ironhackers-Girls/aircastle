@@ -86,7 +86,7 @@ function RegisterForm() {
                   id="file_input"
                   type="file"
                   {...register("avatar")}
-                  className="w-full sm:w-auto rounded-md bg-[var(--white)] px-2.5 py-1.5 text-sm font-semibold text-[var(--black)] ring-1 shadow-xs ring-[var(--dark-gray)] ring-inset hover:bg-gray-50"
+                  className="w-full sm:w-auto px-4 py-3 border border-[var(--light-gray)] rounded-lg text-black bg-white focus:outline-none focus:ring-2 focus:ring-[var(--purple)] cursor-pointer"
                 />
                 {errors.avatar && (
                   <div className="text-red-500 text-xs mt-1">
@@ -214,17 +214,11 @@ function RegisterForm() {
             </legend>
             <div className="mt-6 space-y-6">
               <div className="flex items-center gap-x-3">
-                <label
-                  htmlFor="role"
-                  className="block text-sm font-medium text-[var(--black)]"
-                >
-                  Your Role
-                </label>
                 <select
                   id="role"
                   name="role"
                   {...register("role", { required: "Mandatory field" })}
-                  className="block w-full rounded-md border border-[var(--dark-gray)] bg-[var(--white)] py-2 text-[var(--black)] outline-none focus:ring-2 focus:ring-[var(--purple)]"
+                  className="block w-3/4 rounded-md border border-[var(--dark-gray)] bg-[var(--white)] py-2 text-[var(--black)] outline-none focus:ring-2 focus:ring-[var(--purple)]"
                 >
                   <option value="host">Host</option>
                   <option value="guest">Guest</option>
@@ -243,7 +237,7 @@ function RegisterForm() {
         <div>
           <button
             type="submit"
-            className="w-full py-2 rounded-lg bg-[var(--purple)] text-[var(--white)] font-bold hover:opacity-90"
+            className="w-full py-2 rounded-lg bg-[var(--purple)] text-[var(--white)] font-bold hover:opacity-90 active:scale-95 active:shadow-inner transition-all duration-150 cursor-pointer"
           >
             Register
           </button>
