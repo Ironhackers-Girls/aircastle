@@ -2,13 +2,22 @@ import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import * as AirCastleApi from "../services/aircastle-service";
 import { useForm } from "react-hook-form";
-import { IconInfoCircle, IconMapPin, IconList, IconPhoto } from "@tabler/icons-react";
+import {
+  IconInfoCircle,
+  IconMapPin,
+  IconList,
+  IconPhoto,
+} from "@tabler/icons-react";
 import { Snackbar, Alert } from "@mui/material";
 
 function CastleUpdatePage() {
   const { id } = useParams();
   const [castle, setCastle] = useState(null);
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
   useEffect(() => {
@@ -37,22 +46,9 @@ function CastleUpdatePage() {
     formData.append("country", data.country);
     formData.append("amenities", data.amenities.split(","));
     formData.append("services", data.services.split(","));
+    // formData.append("images1", data.images[0]);
 
-    if (data.image1 && data.image1[0]) {
-      formData.append("images", data.image1[0]);
-    }
-    if (data.image2 && data.image2[0]) {
-      formData.append("images", data.image2[0]);
-    }
-    if (data.image3 && data.image3[0]) {
-      formData.append("images", data.image3[0]);
-    }
-    if (data.image4 && data.image4[0]) {
-      formData.append("images", data.image4[0]);
-    }
-    if (data.image5 && data.image5[0]) {
-      formData.append("images", data.image5[0]);
-    }
+    console.log(data.images);
 
     try {
       await AirCastleApi.updateCastle(castle._id, formData);
@@ -67,7 +63,7 @@ function CastleUpdatePage() {
       <h1 className="text-2xl font-bold text-[var(--black)] text-center mb-8">
         Edit Castle Info
       </h1>
-      
+
       {castle ? (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
           {/* General Information */}
@@ -101,7 +97,9 @@ function CastleUpdatePage() {
                   Description
                 </label>
                 <textarea
-                  {...register("description", { required: "Description is required" })}
+                  {...register("description", {
+                    required: "Description is required",
+                  })}
                   defaultValue={castle?.description}
                   className="w-full rounded-md bg-[var(--white)] px-3 py-2 text-[var(--black)] border border-[var(--dark-gray)] outline-none focus:ring-2 focus:ring-[var(--purple)]"
                 />
@@ -138,9 +136,9 @@ function CastleUpdatePage() {
                 </label>
                 <input
                   type="number"
-                  {...register("rooms", { 
+                  {...register("rooms", {
                     required: "Rooms are required",
-                    min: { value: 1, message: "Rooms must be at least 1" }
+                    min: { value: 1, message: "Rooms must be at least 1" },
                   })}
                   defaultValue={castle?.rooms}
                   className="w-full rounded-md bg-[var(--white)] px-3 py-2 text-[var(--black)] border border-[var(--dark-gray)] outline-none focus:ring-2 focus:ring-[var(--purple)]"
@@ -158,9 +156,9 @@ function CastleUpdatePage() {
                 </label>
                 <input
                   type="number"
-                  {...register("bathrooms", { 
+                  {...register("bathrooms", {
                     required: "Bathrooms are required",
-                    min: { value: 1, message: "Bathrooms must be at least 1" }
+                    min: { value: 1, message: "Bathrooms must be at least 1" },
                   })}
                   defaultValue={castle?.bathrooms}
                   className="w-full rounded-md bg-[var(--white)] px-3 py-2 text-[var(--black)] border border-[var(--dark-gray)] outline-none focus:ring-2 focus:ring-[var(--purple)]"
@@ -275,9 +273,7 @@ function CastleUpdatePage() {
           <div>
             <div className="flex items-center mb-4">
               <IconPhoto className="mr-2" />
-              <h2 className="text-xl font-bold text-[var(--black)]">
-                Images
-              </h2>
+              <h2 className="text-xl font-bold text-[var(--black)]">Images</h2>
             </div>
             <div className="grid grid-cols-1 gap-y-4">
               <div>
@@ -365,7 +361,11 @@ function CastleUpdatePage() {
         onClose={() => setOpenSnackbar(false)}
         sx={{ top: "80px" }}
       >
-        <Alert onClose={() => setOpenSnackbar(false)} severity="success" sx={{ width: "100%" }}>
+        <Alert
+          onClose={() => setOpenSnackbar(false)}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
           Castle updated!
         </Alert>
       </Snackbar>
