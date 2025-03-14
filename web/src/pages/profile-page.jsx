@@ -36,7 +36,7 @@ function ProfilePage() {
   return (
     <div className="max-w-7xl mx-auto py-10">
       <div className="flex flex-col md:flex-row gap-8">
-        {/* Left Column */}
+        {/* Left */}
         <div className="w-full md:w-1/3 flex flex-col gap-6">
           {/* Profile Info */}
           <div className="bg-[var(--white)] p-6 rounded-lg shadow-md">
@@ -78,7 +78,7 @@ function ProfilePage() {
           </div>
         </div>
 
-        {/* Right Column */}
+        {/* Right */}
         <div className="w-full md:w-2/3 flex flex-col gap-6">
           {/* About Box */}
           <div className="p-6">
