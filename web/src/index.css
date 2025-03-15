@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap");
 @import "tailwindcss";
 @import "rsuite/DateRangePicker/styles/index.css";
 
@@ -7,4 +8,5 @@
   --white: #ffffff;
   --dark-gray: #b0b0b0;
   --light-gray: #cccccc;
+  --font-montserrat: "Montserrat", "sans-serif"; 
 }
