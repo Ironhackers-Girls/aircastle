@@ -124,8 +124,6 @@ module.exports.update = (req, res, next) => {
     const { id } = req.params;
     const { body } = req;
 
-    console.log(req.files);
-
     const permittedParams = ["title", "description", "address", "capacity", "pricePerNight", "rooms", "bathrooms", "amenities", "services", "images"];
     Object.keys(body).forEach((key) => {
         if (!permittedParams.includes(key)) delete body[key];
