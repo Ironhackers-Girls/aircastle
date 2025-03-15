@@ -9,7 +9,7 @@ function CastlePageItem({ castle, onDelete }) {
     <div className="bg-[var(--white)] border border-[var(--light-gray)] rounded-2xl shadow-md overflow-hidden max-w-sm">
       <Link to={`/castles/${castle.id}`}>
         <img
-          src={castle.images[0]?.url}
+          src={castle.images[0]}
           alt={castle.title}
           className="w-full h-48 object-cover"
         />

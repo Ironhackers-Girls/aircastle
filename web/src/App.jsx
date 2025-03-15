@@ -11,6 +11,7 @@ import {
   CastleUpdatePage,
   NotFoundPage,
   ProfilePage,
+  SearchPage,
 } from "./pages/index";
 import RegisterPage from "./pages/register-page";
 import Footer from "./components/ui/footer/footer";
@@ -61,6 +62,7 @@ function App() {
               </PrivateRoute>
             }
           />
+          <Route path="/search" element={<SearchPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
         <Footer />

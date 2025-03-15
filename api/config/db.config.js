@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const MONGODB_URI = process.env.NODE_ENV === "test" ? process.env.MONGODB_URI_TEST : process.env.MONGODB_URI;
 
 mongoose.connect(MONGODB_URI)
-  .then(() => console.info(`Successfully connected to the database`))
+  .then(() => console.info(`Successfully connected to the database`, MONGODB_URI))
   .catch((error) => {
     console.error(`An error occurred trying to connect to the database`, error);
     process.exit(0);

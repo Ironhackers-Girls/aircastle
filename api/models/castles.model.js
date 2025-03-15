@@ -71,20 +71,7 @@ const castleSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "Review"
         }],
-        images: [
-            {
-                url: {
-                    type: String,
-                    required: true,
-                    validate: {
-                        validator: isURL,
-                        message: function() {
-                            return "Invalid image URL";
-                        },
-                    },
-                },
-            },
-        ]
+        images: [String]
     },
     {
         timestamps: true,

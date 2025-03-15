@@ -2,7 +2,7 @@ const Castle = require("../models/castles.model");
 const Booking = require("../models/bookings.model");
 
 module.exports.list = async (req, res, next) => {
-    const { city,
+    const { country,
         checkIn,
         checkOut,
         capacity,
@@ -24,12 +24,14 @@ module.exports.list = async (req, res, next) => {
                 checkIn: { $lte: new Date(checkOut) },
                 checkOut: { $gte: new Date(checkIn) }
             }).populate('castle');
+            console.log(bookedCastles);
 
             castlesReserved = bookedCastles.map((booking) => (booking.castle.id.toString()));
+            console.log(castlesReserved);
         }
 
         const criterial = {};
-        if (city) criterial['address.city'] = city;
+        if (country) criterial['address.country'] = country;
         if (capacity) criterial.capacity = { $gte: capacity };
         if (rooms) criterial.rooms = { $gte: rooms };
         if (bathrooms) criterial.bathrooms = { $gte: bathrooms };
@@ -41,10 +43,14 @@ module.exports.list = async (req, res, next) => {
         }
         if (amenities) criterial.amenities = { $in: amenities.split(",") };
 
+        
+
         const availableCastles = await Castle.find({
             ...criterial,
             _id: { $nin: castlesReserved }
         });
+
+        console.log("dentro", availableCastles);
 
         res.json(availableCastles);
 

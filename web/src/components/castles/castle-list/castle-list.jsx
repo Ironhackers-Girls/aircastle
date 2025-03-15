@@ -2,15 +2,15 @@ import { useEffect, useState } from "react";
 import * as AirCastleApi from "../../../services/aircastle-service"
 import CastleItem from "../castle-item/castle-item";
 
-function CastleList ({ city, lat, lng }) {
+function CastleList ({ city }) {
 
     const [castles, setCastles] = useState([])
 
     useEffect(() => {
-        AirCastleApi.listCastles({city, lat, lng})
+        AirCastleApi.listCastles({city})
         .then((castles) => setCastles(castles))
         .catch((error) => console.error(error))
-    }, [city, lat, lng])
+    }, [city])
 
     return (
         <div>

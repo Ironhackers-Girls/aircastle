@@ -27,32 +27,6 @@ module.exports.isAuthenticated = (req, res, next) => {
   }
 }
 
-module.exports.userIsLoggedIn = (req, res, next) => {
-  const { username } = req.params;
-
-  if (req.user) {
-    next();
-  } else {
-    User.findOne({ username })
-      .then((user) => {
-        if (!user) {
-          next(createError(404, "User not found"));
-        }
-
-        if (user.role === "guest") {
-          res.status(418).send(); // insert login-page
-        }
-        const userResponse = {
-          id: user.id,
-          username: user.username,
-          name: user.name,
-          role: user.role
-        }
-        res.json(userResponse);
-      })
-      .catch(next);
-  }
-}
 
 module.exports.isYourCastle = (req, res, next) => {
   const { id } = req.params;

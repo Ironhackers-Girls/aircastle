@@ -2,7 +2,8 @@ import { useForm } from "react-hook-form";
 import { useAuthContext } from "../../../contexts/auth-context";
 import { useNavigate } from "react-router-dom";
 import * as AirCastleAPI from "../../../services/aircastle-service";
-import { UserCircleIcon } from "@heroicons/react/24/solid";
+import { IconUserCircle } from "@tabler/icons-react";
+
 
 function RegisterForm() {
   const { register, handleSubmit, formState, setError } = useForm();
@@ -78,7 +79,8 @@ function RegisterForm() {
                 Avatar
               </label>
               <div className="mt-2 flex items-center gap-x-3 w-full flex-wrap">
-                <UserCircleIcon
+                <IconUserCircle
+                  size={20}
                   aria-hidden="true"
                   className="text-[var(--dark-gray)] w-12 h-12"
                 />

@@ -4,7 +4,7 @@ const Booking = require("../models/bookings.model");
 const dayjs = require("dayjs");
 const Review = require("../models/reviews.model");
 
-module.exports.list = async (req, res, next) => {
+module.exports.list = (req, res, next) => {
     const { city,
         idHost,
         capacity,
@@ -123,6 +123,8 @@ module.exports.delete = (req, res, next) => {
 module.exports.update = (req, res, next) => {
     const { id } = req.params;
     const { body } = req;
+
+    console.log(req.files);
 
     const permittedParams = ["title", "description", "address", "capacity", "pricePerNight", "rooms", "bathrooms", "amenities", "services", "images"];
     Object.keys(body).forEach((key) => {

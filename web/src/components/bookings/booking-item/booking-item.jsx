@@ -43,7 +43,7 @@ function BookingItem({
       try {
         await AirCastleAPI.createBooking(booking);
         console.info("Booking successful!");
-        navigate("/profile");
+        navigate("/bookings");
       } catch (error) {
         console.error("Booking failed:", error);
       }

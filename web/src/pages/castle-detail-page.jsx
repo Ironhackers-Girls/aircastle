@@ -46,26 +46,26 @@ function CastleDetail() {
         {/* Image gallery */}
         <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-2 lg:px-2">
           <img
-            src={castle.images[0].url}
+            src={castle.images[0]}
             className="hidden size-full rounded-lg object-cover lg:block"
           />
           <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-2">
             <img
-              src={castle.images[1].url}
+              src={castle.images[1]}
               className="aspect-3/2 w-full rounded-lg object-cover"
             />
             <img
-              src={castle.images[2].url}
+              src={castle.images[2]}
               className="aspect-3/2 w-full rounded-lg object-cover"
             />
           </div>
           <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-2">
             <img
-              src={castle.images[3].url}
+              src={castle.images[3]}
               className="aspect-3/2 w-full rounded-lg object-cover"
             />
             <img
-              src={castle.images[4].url}
+              src={castle.images[4]}
               className="aspect-3/2 w-full rounded-lg object-cover"
             />
           </div>
