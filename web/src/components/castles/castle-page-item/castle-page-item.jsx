@@ -1,68 +1,60 @@
+import { IconBed, IconBath } from "@tabler/icons-react";
+import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 
 function CastlePageItem({ castle, onDelete }) {
-  const formatDate = (date) => {
-    const options = { year: 'numeric', month: 'short', day: 'numeric' };
-    return new Date(date).toLocaleDateString(undefined, options);
-  };
+  const formatDate = (date) => dayjs(date).format("DD/MM/YYYY");
 
   return (
-    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
-      <Link to={`castles/${castle.id}`}>
+    <div className="bg-[var(--white)] border border-[var(--light-gray)] rounded-2xl shadow-md overflow-hidden max-w-sm">
+      <Link to={`/castles/${castle.id}`}>
         <img
-          className="rounded-t-lg w-full h-48 object-cover"
           src={castle.images[0]?.url}
           alt={castle.title}
+          className="w-full h-48 object-cover"
         />
       </Link>
+
       <div className="p-5">
-        <Link to={`castles/${castle.id}`}>
-          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+        <Link to={`/castles/${castle.id}`}>
+          <h5 className="text-2xl font-bold text-[var(--black)] mb-2">
             {castle.title}
           </h5>
         </Link>
-        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-          Price per night: {castle.pricePerNight} €
-        </p>
-        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+        <p className="text-[var(--dark-gray)] mb-3">
           {castle.address?.city}, {castle.address?.country}
         </p>
-        
-        <p className="mb-2 font-normal text-gray-700 dark:text-gray-400">
-          Created At: {castle.createdAt ? formatDate(castle.createdAt) : "N/A"}
+        <div className="flex items-center gap-4 text-[var(--dark-gray)] mb-3">
+          <span className="flex items-center gap-1">
+            <IconBed size={20} /> {castle.rooms || 0} Bed
+          </span>
+          <span className="flex items-center gap-1">
+            <IconBath size={20} /> {castle.bathrooms || 0} Bath
+          </span>
+        </div>
+        <p className="text-[var(--black)] font-semibold text-lg mb-3">
+          {castle.pricePerNight} € / night
         </p>
-        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-          Updated At: {castle.updatedAt ? formatDate(castle.updatedAt) : "N/A"}
-        </p>
-        <Link to={`castles/${castle.id}`}>
-          View Details
-          <svg
-            className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 10"
-          >
-            <path
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M1 5h12m0 0L9 1m4 4L9 9"
-            />
-          </svg>
-        </Link>
 
-        <div className="flex space-x-2">
-          <Link 
-            to={`/castles/${castle.id}/update`} 
-            className="bg-blue-500 text-white px-3 py-2 rounded-md"
+        <div className="text-[var(--dark-gray)] text-sm">
+          <p>
+            Created: {castle.createdAt ? formatDate(castle.createdAt) : "N/A"}
+          </p>
+          <p>
+            Updated: {castle.updatedAt ? formatDate(castle.updatedAt) : "N/A"}
+          </p>
+        </div>
+
+        <div className="flex space-x-2 mt-4">
+          <Link
+            to={`/castles/${castle.id}/update`}
+            className="bg-[var(--purple)] text-[var(--white)] px-3 py-2 rounded-md text-sm"
           >
             Update
           </Link>
-          <button 
-            onClick={() => onDelete(castle.id)} 
-            className="bg-red-500 text-white px-3 py-2 rounded-md"
+          <button
+            onClick={() => onDelete(castle.id)}
+            className="bg-red-500 text-[var(--white)] px-3 py-2 rounded-md text-sm"
           >
             Delete
           </button>

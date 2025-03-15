@@ -19,7 +19,7 @@ router.patch("/users/myprofile", auth.isAuthenticated, storage.single("avatar"),
 router.get("/castles", castles.list);
 router.get("/castles/:id", castles.detail);
 router.post("/castles", auth.isAuthenticated, auth.isHost, castles.create);
-router.patch("/castles/:id", auth.isAuthenticated,storage.single("avatar"), auth.isHost, auth.isYourCastle, castles.update);
+router.patch("/castles/:id", auth.isAuthenticated,storage.array("images"), auth.isHost, auth.isYourCastle, castles.update);
 router.delete("/castles/:id",auth.isAuthenticated, auth.isHost, auth.isYourCastle, castles.delete);
 
 
