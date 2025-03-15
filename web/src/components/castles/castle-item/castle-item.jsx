@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function CastleItem({ castle }) {
   return (
     <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
-      <Link to={`castles/${castle.id}`}>
+      <Link to={`/castles/${castle.id}`}>
         <img
           className="rounded-t-lg w-full h-48 object-cover"
           src={castle.images[0]?.url}
@@ -11,7 +11,7 @@ function CastleItem({ castle }) {
         />
       </Link>
       <div className="p-5">
-        <Link to={`castles/${castle.id}`}>
+        <Link to={`/castles/${castle.id}`}>
           <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
             {castle.title}
           </h5>
@@ -22,10 +22,12 @@ function CastleItem({ castle }) {
         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
           {castle.address?.city}, {castle.address?.country}
         </p>
+        <Link to={`/profile/${castle.user?.username}`}>
         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
           Host: {castle.user?.name}
         </p>
-        <Link to={`castles/${castle.id}`}>
+        </Link>
+        <Link to={`/castles/${castle.id}`}>
           View Details
           <svg
             className="rtl:rotate-180 w-3.5 h-3.5 ms-2"

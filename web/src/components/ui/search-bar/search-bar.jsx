@@ -1,26 +1,30 @@
 import { useState } from 'react';
+import { useSearchParams } from "react-router-dom";
+import { GoogleAutocompleteInput } from '../../google/index';
 
 const SearchBar = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+  //const [searchTerm, setSearchTerm] = useState('');
   const [location, setLocation] = useState('');
   const [dates, setDates] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+
 
   const handleSearch = () => {
-    console.log("Searching for:", searchTerm, location, dates);
+    console.log("Searching for:", location, dates);
   };
+
+  function handlePlaceChange(location) {
+    const { lat, lng, city } = location;
+    console.log(location);
+    setSearchParams({ city, page: 0, lat, lng });
+  }
 
   return (
     <div className="flex justify-center items-center ">
       <div className="w-full max-w-4xl p-2  shadow-lg rounded-lg">
         <div className="flex space-x-4">
           {/* Campo de búsqueda */}
-          <input
-            type="text"
-            className="w-full px-4 py-2 border rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="¿A dónde vamos?"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+          <GoogleAutocompleteInput className="mb-3" onPlaceChange={handlePlaceChange} />
           {/* Campo de ubicación */}
           <input
             type="text"
