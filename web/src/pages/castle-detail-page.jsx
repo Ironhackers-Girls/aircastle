@@ -19,9 +19,7 @@ function CastleDetail() {
   const handleDates = (dates) => {
     const checkIn = dayjs(dates[0]).format('DD/MM/YYYY');
     const checkOut = dayjs(dates[1]).format('DD/MM/YYYY');
-    console.log(checkIn)
-    console.log(checkOut)
-
+    
     navigate({
       pathname: `/castles/${id}`,  
       search: `?checkIn=${checkIn}&checkOut=${checkOut}`,  

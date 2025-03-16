@@ -11,3 +11,8 @@
   --font-montserrat: "Montserrat", "sans-serif"; 
   --soft-gray: #F7F7F7;
 }
+
+/* Esto oculta la barra de desplazamiento pero mantiene el comportamiento de desplazamiento */
+.scroll-container::-webkit-scrollbar {
+  display: none;  
+}
