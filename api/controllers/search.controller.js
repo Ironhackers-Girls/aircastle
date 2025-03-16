@@ -24,10 +24,8 @@ module.exports.list = async (req, res, next) => {
                 checkIn: { $lte: new Date(checkOut) },
                 checkOut: { $gte: new Date(checkIn) }
             }).populate('castle');
-            console.log(bookedCastles);
 
             castlesReserved = bookedCastles.map((booking) => (booking.castle.id.toString()));
-            console.log(castlesReserved);
         }
 
         const criterial = {};
@@ -48,9 +46,7 @@ module.exports.list = async (req, res, next) => {
         const availableCastles = await Castle.find({
             ...criterial,
             _id: { $nin: castlesReserved }
-        });
-
-        console.log("dentro", availableCastles);
+        }).populate('user');
 
         res.json(availableCastles);
 

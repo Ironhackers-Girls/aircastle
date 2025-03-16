@@ -21,7 +21,7 @@ function ProfilePage() {
       const data = await AirCastleAPI.profile(username);
       if (data && data.role === "host") {
         setHost(data);
-        const castlesData = await AirCastleAPI.listCastles(data.id);
+        const castlesData = await AirCastleAPI.listCastles({ idHost: data.id });
         setCastles(castlesData);
       } else {
         navigate("/not-found");

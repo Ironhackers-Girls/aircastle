@@ -26,7 +26,7 @@ function Footer() {
             </div>
   
             <div>
-              <h3 className="mb-4 font-semibold text-sm md:text-base">Airbnb</h3>
+              <h3 className="mb-4 font-semibold text-sm md:text-base">AirCastle</h3>
               <ul className="space-y-2 text-sm text-[var(--dark-gray)]">
                 <li><a href="#" className="hover:underline">Newsroom</a></li>
                 <li><a href="#" className="hover:underline">Investors</a></li>
@@ -60,7 +60,7 @@ function Footer() {
   
           <div className="flex flex-col-reverse md:flex-row md:items-center md:justify-between gap-4 text-sm text-[var(--dark-gray)]">
             <div>
-              © 2023 <span className="font-semibold">AirCastle™</span>. 
+              © 2025 <span className="font-semibold">AirCastle™</span>. 
             </div>
             <div>
               This project was created as part of the{" "}

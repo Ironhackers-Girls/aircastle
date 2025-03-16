@@ -48,7 +48,6 @@ function CastleUpdatePage() {
     formData.append("services", data.services.split(","));
     // formData.append("images1", data.images[0]);
 
-    console.log(data.images);
 
     try {
       await AirCastleApi.updateCastle(castle._id, formData);

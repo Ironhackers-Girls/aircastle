@@ -2,10 +2,9 @@ import CastleList from "../components/castles/castle-list/castle-list";
 
 function Homepage() {
     return (
-        <>
-            <p>Hola</p>
+        <div>
             <CastleList />
-        </>
+        </div>
     )
 }
 

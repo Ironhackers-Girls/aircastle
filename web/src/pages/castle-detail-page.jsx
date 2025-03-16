@@ -87,9 +87,8 @@ function CastleDetail() {
   }, [id, checkIn, checkOut]);
 
   const handleDates = (dates) => {
-    const newCheckIn = dayjs(dates[0]).format("DD/MM/YYYY");
-    const newCheckOut = dayjs(dates[1]).format("DD/MM/YYYY");
-
+    const checkIn = dayjs(dates[0]).format('DD/MM/YYYY');
+    const checkOut = dayjs(dates[1]).format('DD/MM/YYYY');
     navigate({
       pathname: `/castles/${id}`,
       search: `?checkIn=${newCheckIn}&checkOut=${newCheckOut}`,

@@ -23,12 +23,13 @@ function CastlePageList() {
   };
 
   useEffect(() => {
-    AirCastleApi.listCastles(user.id)
+    AirCastleApi.listCastles({ idHost: user.id })
       .then((castles) => {
         setCastles(castles);
       })
       .catch((error) => console.error(error));
   }, [user]);
+  
 
   const handleDelete = (id) => {
     AirCastleApi.deleteCastle(id)
