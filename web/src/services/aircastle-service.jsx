@@ -42,7 +42,7 @@ const getBooking = (id) => http.get(`/bookings/${id}`)
 const createBooking = (booking) =>http.post("/bookings", booking);
 const deleteBooking = (id) => http.delete(`/bookings/${id}`)
 
-const createReview = (id) => http.get(`/bookings/${id}/reviews`);
+const createReview = (id, { title, rating, text }) => http.post(`/bookings/${id}/reviews`, { title, rating, text });
 
 export {
     profile,
