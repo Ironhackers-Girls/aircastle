@@ -4,10 +4,14 @@ import { useAuthContext } from "../../../contexts/auth-context";
 import * as AirCastleAPI from "../../../services/aircastle-service";
 import { useNavigate } from "react-router-dom";
 import Lottie from "react-lottie";
+import dayjs from "../../../lib/dayjs";
 import bookingAnimation from "../../../assets/booking-done-animation";
 
 function BookingItem({ checkIn, checkOut, onDates, availability, castle }) {
-  const [dates, setDates] = useState([new Date(checkIn), new Date(checkOut)]);
+  const [dates, setDates] = useState([
+    dayjs(checkIn).toDate(),
+    dayjs(checkOut).toDate(),
+  ]);
   const { user } = useAuthContext();
   const navigate = useNavigate();
   const [isPopupVisible, setIsPopupVisible] = useState(false);
@@ -18,11 +22,8 @@ function BookingItem({ checkIn, checkOut, onDates, availability, castle }) {
     onDates(selectedDates);
   };
 
-  const nights = Math.ceil(
-    (dates[1].getTime() - dates[0].getTime()) / (1000 * 60 * 60 * 24)
-  );
-
-  const basePrice = nights * castle?.pricePerNight;
+  const nights = dayjs(dates[1]).diff(dayjs(dates[0]), "day");
+  const basePrice = nights * (castle?.pricePerNight || 0);
   const cleaningFee = 102;
   const totalPriceCalculated = basePrice + cleaningFee;
 
@@ -41,8 +42,8 @@ function BookingItem({ checkIn, checkOut, onDates, availability, castle }) {
 
     const booking = {
       castle,
-      checkIn: dates[0].toISOString(),
-      checkOut: dates[1].toISOString(),
+      checkIn: dayjs(dates[0]).toISOString(),
+      checkOut: dayjs(dates[1]).toISOString(),
       totalPrice: totalPriceCalculated,
     };
 
@@ -69,9 +70,7 @@ function BookingItem({ checkIn, checkOut, onDates, availability, castle }) {
   };
 
   const shouldDisableDate = (date) => {
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    tomorrow.setHours(0, 0, 0, 0);
+    const tomorrow = dayjs().add(1, "day").startOf("day").toDate();
     return date < tomorrow;
   };
 
@@ -84,8 +83,8 @@ function BookingItem({ checkIn, checkOut, onDates, availability, castle }) {
             <span className="text-sm font-normal">/ night</span>
           </div>
           <div className="text-sm text-gray-600">
-            Check-in: {dates[0].toLocaleDateString()} <br />
-            Check-out: {dates[1].toLocaleDateString()}
+            Check-in: {dayjs(dates[0]).format("DD/MM/YYYY")} <br />
+            Check-out: {dayjs(dates[1]).format("DD/MM/YYYY")}
           </div>
         </div>
 
@@ -105,9 +104,7 @@ function BookingItem({ checkIn, checkOut, onDates, availability, castle }) {
 
           <button
             type="submit"
-            className="mt-6 w-full flex items-center justify-center rounded-md border border-transparent 
-              bg-[var(--purple)] px-8 py-3 text-base font-medium text-white hover:brightness-90 
-              focus:ring-2 focus:ring-[var(--purple)] focus:ring-offset-2 focus:outline-none cursor-pointer"
+            className="mt-6 w-full flex items-center justify-center rounded-md border border-transparent bg-[var(--purple)] px-8 py-3 text-base font-medium text-white hover:brightness-90 focus:ring-2 focus:ring-[var(--purple)] focus:ring-offset-2 focus:outline-none cursor-pointer"
             disabled={availability}
           >
             {availability ? "Not available" : "Book Castle"}
