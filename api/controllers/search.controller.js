@@ -48,7 +48,7 @@ module.exports.list = async (req, res, next) => {
         const availableCastles = await Castle.find({
             ...criterial,
             _id: { $nin: castlesReserved }
-        });
+        }).populate('user');
 
         console.log("dentro", availableCastles);
 
