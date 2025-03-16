@@ -105,9 +105,8 @@ function BookingItem({ checkIn, checkOut, onDates, availability, castle }) {
           <button
             type="submit"
             className="mt-6 w-full flex items-center justify-center rounded-md border border-transparent bg-[var(--purple)] px-8 py-3 text-base font-medium text-white hover:brightness-90 focus:ring-2 focus:ring-[var(--purple)] focus:ring-offset-2 focus:outline-none cursor-pointer"
-            disabled={availability}
           >
-            {availability ? "Not available" : "Book Castle"}
+            Book Castle
           </button>
         </form>
 
