@@ -7,7 +7,7 @@ import Lottie from "react-lottie";
 import dayjs from "../../../lib/dayjs";
 import bookingAnimation from "../../../assets/booking-done-animation";
 
-function BookingItem({ checkIn, checkOut, onDates, availability, castle }) {
+function BookingItem({ checkIn, checkOut, onDates, castle }) {
   const [dates, setDates] = useState([
     dayjs(checkIn).toDate(),
     dayjs(checkOut).toDate(),
