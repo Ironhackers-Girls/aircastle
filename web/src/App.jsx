@@ -12,6 +12,7 @@ import {
   NotFoundPage,
   ProfilePage,
   SearchPage,
+  BookingDetailPage,
 } from "./pages/index";
 import RegisterPage from "./pages/register-page";
 import Footer from "./components/ui/footer/footer";
@@ -51,6 +52,14 @@ function App() {
             element={
               <PrivateRoute role="guest">
                 <BookingsPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/bookings/:id"
+            element={
+              <PrivateRoute role="guest">
+                <BookingDetailPage />
               </PrivateRoute>
             }
           />
