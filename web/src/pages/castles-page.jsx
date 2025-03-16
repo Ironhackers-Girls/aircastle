@@ -2,8 +2,8 @@ import CastlePageList from "../components/castles/castle-page-list/castle-page-l
 
 function CastlesPage() {
   return (
-    <div>
-      <h3 className="text-4xl font-bold py-6">My Castles</h3>
+    <div className= "mt-5 mb-5">
+      <h3 className="text-4xl font-bold mb-7">My Castles</h3>
       <CastlePageList />
     </div>
   );

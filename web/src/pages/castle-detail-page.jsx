@@ -110,9 +110,8 @@ function CastleDetail() {
   return (
     <div
       className="bg-[var(--white)]"
-      style={{ fontFamily: "var(--font-montserrat)" }}
     >
-      <div className="pt-6 mx-auto max-w-7xl">
+      <div className="mx-auto max-w-7xl">
         {/* Images */}
         <div className="mx-auto mt-6 max-w-2xl sm:px-6 hidden lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-2 lg:px-2">
           <img

@@ -49,13 +49,22 @@ function NavBar() {
           </Link>
         )}
         {user.role === "host" && (
-          <Link
-            to="/castles"
-            className="flex items-center px-3 py-2 rounded-full text-[var(--black)] hover:bg-[var(--light-gray)]"
-          >
-            <IconBuildingCastle className="mr-2" size={20} />
-            My Castles
-          </Link>
+          <div className="flex flex-row">
+            <Link
+              to="/bookings"
+              className="flex items-center px-3 py-2 rounded-full text-[var(--black)] hover:bg-[var(--light-gray)]"
+            >
+              <IconBuildingCastle className="mr-2" size={20} />
+              My Bookings
+            </Link>
+            <Link
+              to="/castles"
+              className="flex items-center px-3 py-2 rounded-full text-[var(--black)] hover:bg-[var(--light-gray)]"
+            >
+              <IconBuildingCastle className="mr-2" size={20} />
+              My Castles
+            </Link>
+          </div>
         )}
         <Link
           to="/profile"
@@ -80,7 +89,7 @@ function NavBar() {
   };
 
   return (
-    <nav className="sticky rounded-md top-4 p-2 bg-[var(--white)] border-b border-[var(--light-gray)] shadow-sm">
+    <nav className="sticky rounded-md z-5 top-4 p-2 bg-[var(--white)] border-b border-[var(--light-gray)] shadow-sm">
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}

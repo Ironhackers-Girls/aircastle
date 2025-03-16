@@ -30,7 +30,7 @@ function MyProfile() {
 
 
   return (
-    <div className="max-w-4xl mx-auto mt-10 p-6 bg-white shadow-xl rounded-xl border border-[var(--light-gray)]">
+    <div className="max-w-4xl mt-5 mb-5 mx-auto p-6 bg-white shadow-xl rounded-xl border border-[var(--light-gray)]">
       <h2 className="text-3xl font-bold text-black mb-6">My Profile</h2>
 
       <div className="flex justify-center mb-6">

@@ -35,9 +35,11 @@ function SearchPage() {
   return (
     <div>
       {search.length > 0 ? (
-        search.map((castle) => (
+        <div className="flex flex-wrap justify-between sm:gap-8 lg:gap-5">
+        {search.map((castle) => (
           <CastleItem key={castle.id} castle={castle} />
-        ))
+        ))}
+        </div> 
       ) : (
         <div className="flex flex-col items-center justify-center mt-10">
           <Lottie options={lottieOptions} height={300} width={300} />

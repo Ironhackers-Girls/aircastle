@@ -91,7 +91,7 @@ function BookingItem({ checkIn, checkOut, onDates, castle }) {
         <form className="mt-6" onSubmit={handleBooking}>
           <div>
             <h3 className="text-sm font-medium text-gray-900 mb-1">Date</h3>
-            <DateRangePicker
+            <DateRangePicker showOneCalendar
               value={dates}
               onChange={handleDateChange}
               format="yyyy-MM-dd"

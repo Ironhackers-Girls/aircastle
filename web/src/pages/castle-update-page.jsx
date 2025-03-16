@@ -58,7 +58,7 @@ function CastleUpdatePage() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-8 py-8 mt-12 bg-[var(--white)] rounded-2xl shadow-lg border border-[var(--dark-gray)]">
+    <div className="max-w-4xl mx-auto mt-5 mb-5 px-8 py-8 bg-[var(--white)] rounded-2xl shadow-lg border border-[var(--dark-gray)]">
       <h1 className="text-2xl font-bold text-[var(--black)] text-center mb-8">
         Edit Castle Info
       </h1>

@@ -13,7 +13,7 @@ const NotFoundPage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-10 sm:p-20 md:p-32 lg:p-40 xl:p-48 text-[var(--black)] text-center">
+    <div className="flex flex-col items-center justify-center p-10 sm:p-20 md:p-32 lg:p-30 xl:p-20 text-[var(--black)] text-center">
       <div className="flex justify-center items-center mb-5 w-full max-w-[500px]">
         <Lottie
           options={lottieOptions}

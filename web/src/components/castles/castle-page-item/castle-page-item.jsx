@@ -6,7 +6,7 @@ function CastlePageItem({ castle, onDelete }) {
   const formatDate = (date) => dayjs(date).format("DD/MM/YYYY");
 
   return (
-    <div className="bg-[var(--white)] border border-[var(--light-gray)] rounded-2xl shadow-md overflow-hidden max-w-sm">
+    <div className="bg-[var(--white)] border border-[var(--light-gray)] rounded-2xl shadow-md overflow-hidden max-w-sm  hover:border-[var(--purple)]">
       <Link to={`/castles/${castle.id}`}>
         <img
           src={castle.images[0]}
@@ -37,9 +37,6 @@ function CastlePageItem({ castle, onDelete }) {
         </p>
 
         <div className="text-[var(--dark-gray)] text-sm">
-          <p>
-            Created: {castle.createdAt ? formatDate(castle.createdAt) : "N/A"}
-          </p>
           <p>
             Updated: {castle.updatedAt ? formatDate(castle.updatedAt) : "N/A"}
           </p>

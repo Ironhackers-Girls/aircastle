@@ -1,5 +1,6 @@
 import PageLayout from "./components/layouts/page-layout/page-layout";
 import ScrollToTop from "./components/layouts/scroll/scroll-to-top";
+import InteriorLayout from "./components/layouts/interior-layout/interior-layout";
 import { Route, Routes } from "react-router-dom";
 import {
   CastleDetail,
@@ -25,6 +26,7 @@ function App() {
       <PageLayout>
         <ScrollToTop />
         <NavBar />
+        <InteriorLayout>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
@@ -50,7 +52,7 @@ function App() {
           <Route
             path="/bookings"
             element={
-              <PrivateRoute role="guest">
+              <PrivateRoute>
                 <BookingsPage />
               </PrivateRoute>
             }
@@ -58,7 +60,7 @@ function App() {
           <Route
             path="/bookings/:id"
             element={
-              <PrivateRoute role="guest">
+              <PrivateRoute >
                 <BookingDetailPage />
               </PrivateRoute>
             }
@@ -74,8 +76,9 @@ function App() {
           <Route path="/search" element={<SearchPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
-        <Footer />
+        </InteriorLayout>
       </PageLayout>
+      <Footer />
     </>
   );
 }

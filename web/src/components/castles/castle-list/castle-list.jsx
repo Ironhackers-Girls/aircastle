@@ -118,7 +118,7 @@ function CastleList() {
                             className={`flex flex-col min-w-max h-[75px] gap-2 items-center p-3 font-semibold ${selectedService === service.name
                                 ? "border-b-2 border-black text-black "
                                 : "text-gray-600 "
-                                } hover:border-b-2 hover:border-gray-200 hover:text-black`}
+                                } hover:border-b-2 hover:border-gray-200 hover:text-black cursor-pointer`}
                         >
                             {service.icon}
                             <span className="text-xs font-montserrat">{service.name}</span>
@@ -131,7 +131,7 @@ function CastleList() {
                         onClick={scrollLeft}
                         className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gradient-to-r from-white/100 to-white/20 h-full w-[60px] flex justify-center items-center "
                     >
-                        <div className="bg-white border-1 border-gray-400 p-1 rounded-full">
+                        <div className="bg-white border-1 border-gray-400 p-1 rounded-full cursor-pointer">
                             <IconChevronLeft size={20} color="black" />
                         </div>
                     </div>
@@ -142,7 +142,7 @@ function CastleList() {
                         onClick={scrollRight}
                         className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gradient-to-r from-white/20 to-white/100 h-full w-[60px] flex justify-center items-center"
                     >
-                        <div className="bg-white border-1 border-gray-400 p-1 rounded-full">
+                        <div className="bg-white border-1 border-gray-400 p-1 rounded-full cursor-pointer">
                             <IconChevronRight size={20} color="black" />
                         </div>
                     </div>

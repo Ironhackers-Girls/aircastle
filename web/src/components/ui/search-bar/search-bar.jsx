@@ -51,12 +51,12 @@ const SearchBar = () => {
 
         {/* Date */}
         <div className="flex-grow min-w-0">
-          <DateRangePicker
+          <DateRangePicker showOneCalendar
             value={dates}
             onChange={handleDateChange}
             format="yyyy-MM-dd"
             placeholder="Dates"
-            className="w-full"
+            className="w-full z-60"
             style={{ border: "none", width: "100%" }}
             shouldDisableDate={shouldDisableDate} 
           />
