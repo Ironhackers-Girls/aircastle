@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import * as AirCastleAPI from "../services/aircastle-service";
 import BookingItem from "../components/bookings/booking-item/booking-item";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import dayjs from "../lib/dayjs";
 import {
   IconMapPin,
@@ -76,19 +76,24 @@ function ServiceItem({ service }) {
 }
 
 function CastleDetail() {
-  const { id, checkIn, checkOut } = useParams();
+  const { id } = useParams();
   const [castle, setCastle] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
+  const searchParams = new URLSearchParams(location.search);
+  const checkIn = searchParams.get("checkIn");
+  const checkOut = searchParams.get("checkOut");
+  
   useEffect(() => {
     AirCastleAPI.getCastle(id, checkIn, checkOut)
-      .then((castle) => setCastle(castle))
+      .then((castle) => {setCastle(castle)})
       .catch((error) => console.log(error));
   }, [id, checkIn, checkOut]);
 
   const handleDates = (dates) => {
-    const newCheckIn = dayjs(dates[0]).format("DD/MM/YYYY");
-    const newCheckOut = dayjs(dates[1]).format("DD/MM/YYYY");
+    const newCheckIn = dayjs(dates[0]).format("YYYY/MM/DD");
+    const newCheckOut = dayjs(dates[1]).format("YYYY/MM/DD");
 
     navigate({
       pathname: `/castles/${id}`,
@@ -273,7 +278,7 @@ function CastleDetail() {
               checkIn={castle.checkIn}
               checkOut={castle.checkOut}
               onDates={handleDates}
-              availability={castle.availability}
+              availability={castle.available}
               castle={castle}
             />
           </div>

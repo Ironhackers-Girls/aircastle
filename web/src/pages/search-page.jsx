@@ -35,7 +35,7 @@ function SearchPage() {
   return (
     <div>
       {search.length > 0 ? (
-        <div className="flex flex-wrap justify-between sm:gap-8 lg:gap-5">
+        <div className="flex flex-wrap items-center sm:gap-8 lg:gap-5">
         {search.map((castle) => (
           <CastleItem key={castle.id} castle={castle} />
         ))}

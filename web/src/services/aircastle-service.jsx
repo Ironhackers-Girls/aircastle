@@ -1,4 +1,6 @@
 import axios from "axios";
+import dayjs from "../lib/dayjs";
+
 
 const http = axios.create({
     baseURL: "http://localhost:3000/api/v1",
@@ -25,12 +27,19 @@ const logout = () => http.delete("/sessions");
 const listCastles = (params) => http.get("/castles", { params });
 
 const getCastle = (id, checkIn, checkOut) => {
-    if (!checkIn || !checkOut) {
-      return http.get(`/castles/${id}`);
-    }  
+    // Si checkIn es null, asignar el día de hoy
+    if (!checkIn) {
+      checkIn = dayjs().add(1, 'day').format('YYYY-MM-DD'); // Asignamos la fecha de hoy
+    }
+  
+    // Si checkOut es null, asignar el día de mañana
+    if (!checkOut) {
+      checkOut = dayjs().add(2, 'day').format('YYYY-MM-DD'); // Asignamos la fecha de mañana
+    }
+  
+    // Realizamos la llamada HTTP con las fechas actualizadas
     return http.get(`/castles/${id}?checkIn=${checkIn}&checkOut=${checkOut}`);
   };
-  
 const createCastle = (castle) => http.post("/castles", castle);
 const updateCastle = (id, castle) => http.patch(`/castles/${id}`, castle);
 const deleteCastle = (id) => http.delete(`/castles/${id}`)

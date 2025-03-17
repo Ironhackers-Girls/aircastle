@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Lottie from "react-lottie";
 import animationData from "../assets/not-found-animation.json";
 
-const NotFoundPage = () => {
+function NotFoundPage () {
   const lottieOptions = {
     loop: true,
     autoplay: true,

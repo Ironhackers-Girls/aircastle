@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import * as AirCastleApi from "../../../services/aircastle-service";
 import CastleItem from "../castle-item/castle-item";
 import { IconTent, IconBike, IconFish, IconPool, IconCooker, IconCamera, IconYoga, IconBrush, IconStars, IconChevronLeft, IconChevronRight, IconTower, IconBuildingCottage, IconDeviceGamepad2, IconHorse, IconMusic, IconFeather, IconGlassFullFilled, IconSun, IconMountain, IconPuzzle, IconLockSquareRounded, IconSword, IconTargetArrow } from '@tabler/icons-react';
+import LoadingScreen from "../../ui/loading-screen/loading-screen";
 
 function CastleList() {
     const [castles, setCastles] = useState([]);
@@ -150,7 +151,7 @@ function CastleList() {
             </div>
 
             {/* Mostrar castillos */}
-            <div className="flex flex-wrap justify-between sm:gap-8 lg:gap-5">
+            <div className="flex flex-wrap items-center justify-between sm:gap-8 lg:gap-5">
                 {loading
                     ? 
                     Array(18)
@@ -164,7 +165,8 @@ function CastleList() {
                         ))
                     : castles.length === 0
                         ? (
-                            <div className="text-center text-gray-500 w-full">
+                            <div className="text-center h-screen text-gray-500 w-full">
+                                <LoadingScreen />
                                 No castles found for the selected service.
                             </div>
                         )

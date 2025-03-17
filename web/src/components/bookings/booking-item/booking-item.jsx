@@ -7,15 +7,19 @@ import Lottie from "react-lottie";
 import dayjs from "../../../lib/dayjs";
 import bookingAnimation from "../../../assets/booking-done-animation";
 
-function BookingItem({ checkIn, checkOut, onDates, castle }) {
+
+function BookingItem({ checkIn, checkOut, onDates, castle, availability }) {
+  console.log(availability)
   const [dates, setDates] = useState([
-    dayjs(checkIn).toDate(),
-    dayjs(checkOut).toDate(),
+    dayjs(checkIn).subtract(1, 'day').toDate(),
+    dayjs(checkOut).subtract(1, 'day').toDate(),
   ]);
+  console.log(dates)
   const { user } = useAuthContext();
   const navigate = useNavigate();
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [isHostPopupVisible, setIsHostPopupVisible] = useState(false);
+
 
   const handleDateChange = (selectedDates) => {
     setDates(selectedDates);
@@ -42,8 +46,8 @@ function BookingItem({ checkIn, checkOut, onDates, castle }) {
 
     const booking = {
       castle,
-      checkIn: dayjs(dates[0]).toISOString(),
-      checkOut: dayjs(dates[1]).toISOString(),
+      checkIn,
+      checkOut,
       totalPrice: totalPriceCalculated,
     };
 
@@ -104,9 +108,11 @@ function BookingItem({ checkIn, checkOut, onDates, castle }) {
 
           <button
             type="submit"
-            className="mt-6 w-full flex items-center justify-center rounded-md border border-transparent bg-[var(--purple)] px-8 py-3 text-base font-medium text-white hover:brightness-90 focus:ring-2 focus:ring-[var(--purple)] focus:ring-offset-2 focus:outline-none cursor-pointer"
+            className={`mt-6 w-full flex items-center justify-center rounded-md border border-transparent px-8 py-3 text-base font-medium ${availability ? "bg-[var(--purple)] text-white hover:brightness-90 focus:ring-2 focus:ring-[var(--purple)] focus:ring-offset-2" : "bg-gray-400 text-gray-700 cursor-not-allowed"
+              }`}
+            disabled={!availability}  
           >
-            Book Castle
+            {availability ? "Book Castle" : "Castle booked"} {/* Cambiar el texto si no está disponible */}
           </button>
         </form>
 

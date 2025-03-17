@@ -9,6 +9,7 @@ import {
   IconBuildingCastle,
   IconMenu2,
   IconX,
+  IconCalendarWeek,
 } from "@tabler/icons-react";
 
 function NavBar() {
@@ -54,7 +55,7 @@ function NavBar() {
               to="/bookings"
               className="flex items-center px-3 py-2 rounded-full text-[var(--black)] hover:bg-[var(--light-gray)]"
             >
-              <IconBuildingCastle className="mr-2" size={20} />
+              <IconCalendarWeek className="mr-2" size={20} />
               My Bookings
             </Link>
             <Link

@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import * as AirCastleAPI from "../services/aircastle-service";
 import { useEffect, useState } from "react";
 import dayjs from "../lib/dayjs";
+import LoadingScreen from "../components/ui/loading-screen/loading-screen";
 
 function BookingDetailPage() {
     const { id } = useParams();
@@ -18,6 +19,7 @@ function BookingDetailPage() {
             .then((bookingData) => {
                 setBooking(bookingData);
                 setLoading(false);
+                console.log(bookingData.checkIn, bookingData.checkOut)
             })
             .catch((error) => {
                 console.log(error);
@@ -29,15 +31,14 @@ function BookingDetailPage() {
     const hasPassedCheckOut = booking ? dayjs().isAfter(dayjs(booking.checkOut)) : false;
 
     const formatDate = (dateString) => {
-        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-        return new Date(dateString).toLocaleDateString(undefined, options);
+        return new Date(dateString).toDateString();
     };
 
     const handleReviewSubmit = (e) => {
         e.preventDefault();
-        
+
         const { title, rating, text } = review;
-        
+
         AirCastleAPI.createReview(id, { title, rating, text })
             .then((response) => {
                 console.log("Reseña creada:", response);
@@ -56,7 +57,7 @@ function BookingDetailPage() {
     };
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <LoadingScreen />;
     }
 
     if (!booking) {
@@ -72,6 +73,61 @@ function BookingDetailPage() {
                 <p className="text-base font-medium leading-6 text-gray-600">
                     {formatDate(booking.createdAt)}
                 </p>
+                {/* Add Review Form */}
+                {hasPassedCheckOut && !booking.review && (
+                    <div className="bg-gray-50 w-full p-5 mt-6">
+                        <div className=" flex flex-col space-y-4">
+                            <h3 className="text-xl font-semibold leading-5 text-gray-800">Add Your Review</h3>
+                            <form onSubmit={handleReviewSubmit} className="space-y-4">
+                                <div>
+                                    <label htmlFor="title" className="block text-sm font-medium text-gray-700">Title</label>
+                                    <input
+                                        type="text"
+                                        id="title"
+                                        name="title"
+                                        value={review.title}
+                                        onChange={handleInputChange}
+                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label htmlFor="rating" className="block text-sm font-medium text-gray-700">Rating</label>
+                                    <input
+                                        type="number"
+                                        id="rating"
+                                        name="rating"
+                                        value={review.rating}
+                                        onChange={handleInputChange}
+                                        min="1"
+                                        max="5"
+                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label htmlFor="text" className="block text-sm font-medium text-gray-700">text</label>
+                                    <textarea
+                                        id="text"
+                                        name="text"
+                                        value={review.text}
+                                        onChange={handleInputChange}
+                                        rows="4"
+                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    />
+                                </div>
+
+                                <button
+                                    type="submit"
+                                    className="w-full py-3 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700 focus:outline-none"
+                                >
+                                    Submit Review
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                )}
+
             </div>
 
             {/* Booking Details */}
@@ -85,7 +141,7 @@ function BookingDetailPage() {
                             <div className="pb-4 md:pb-8 w-full md:w-40">
                                 <img
                                     className="w-full hidden md:block"
-                                    src={booking.castle?.images?.[0] || "/fallback-image.jpg"} // Fallback for missing image
+                                    src={booking.castle?.images?.[0]}
                                     alt="castle"
                                 />
                             </div>
@@ -138,61 +194,6 @@ function BookingDetailPage() {
                             </div>
                         </div>
                     </div>
-
-                    {/* Add Review Form */}
-                    {hasPassedCheckOut && !booking.review && (
-                        <div className="bg-gray-50 w-full p-5">
-                            <div className="mt-10 flex flex-col space-y-4">
-                                <h3 className="text-xl font-semibold leading-5 text-gray-800">Add Your Review</h3>
-                                <form onSubmit={handleReviewSubmit} className="space-y-4">
-                                    <div>
-                                        <label htmlFor="title" className="block text-sm font-medium text-gray-700">Title</label>
-                                        <input
-                                            type="text"
-                                            id="title"
-                                            name="title"
-                                            value={review.title}
-                                            onChange={handleInputChange}
-                                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                        />
-                                    </div>
-
-                                    <div>
-                                        <label htmlFor="rating" className="block text-sm font-medium text-gray-700">Rating</label>
-                                        <input
-                                            type="number"
-                                            id="rating"
-                                            name="rating"
-                                            value={review.rating}
-                                            onChange={handleInputChange}
-                                            min="1"
-                                            max="5"
-                                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                        />
-                                    </div>
-
-                                    <div>
-                                        <label htmlFor="text" className="block text-sm font-medium text-gray-700">text</label>
-                                        <textarea
-                                            id="text"
-                                            name="text"
-                                            value={review.text}
-                                            onChange={handleInputChange}
-                                            rows="4"
-                                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                        />
-                                    </div>
-
-                                    <button
-                                        type="submit"
-                                        className="w-full py-3 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700 focus:outline-none"
-                                    >
-                                        Submit Review
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    )}
                 </div>
 
                 {/* Host Information */}
@@ -202,7 +203,7 @@ function BookingDetailPage() {
                         <div className="flex flex-col justify-start items-start flex-shrink-0">
                             <div className="flex justify-center w-[80px] md:justify-start items-center space-x-4 py-8 border-b border-gray-200">
                                 <img
-                                    src={booking.user?.avatar || "/fallback-avatar.jpg"}  // Fallback for missing avatar
+                                    src={booking.user?.avatar} 
                                     alt="avatar"
                                     className="rounded-full"
                                 />

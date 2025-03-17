@@ -39,22 +39,25 @@ const SearchBar = () => {
     <div className="flex justify-center items-center w-full">
       <div className="flex flex-wrap sm:flex-nowrap items-center bg-[var(--white)] border border-[var(--light-gray)] rounded-full shadow-sm px-3 py-1 w-full max-w-full lg:max-w-3xl">
         {/* Country */}
-        <IconMapPin className="text-[var(--dark-gray)]" size={20} />
+        
         <input
           type="text"
-          className="flex-grow bg-transparent focus:outline-none min-w-0"
+          className="flex-grow bg-transparent text-sm focus:outline-none min-w-0"
           placeholder="Country"
           value={country}
           onChange={(e) => setCountry(e.target.value)}
         />
+        <IconMapPin className="text-[var(--dark-gray)]" size={18} />
         <div className="w-px bg-[var(--light-gray)] h-6 mx-2" />
 
         {/* Date */}
         <div className="flex-grow min-w-0">
-          <DateRangePicker showOneCalendar
+          <DateRangePicker showOneCalendar 
+            appearance="subtle"
             value={dates}
             onChange={handleDateChange}
-            format="yyyy-MM-dd"
+            ranges={[]}
+            format="dd-MM-yyyy"
             placeholder="Dates"
             className="w-full z-60"
             style={{ border: "none", width: "100%" }}
